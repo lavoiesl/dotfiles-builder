@@ -1,4 +1,4 @@
-# Dotfiles Skeleton
+# Dotfiles Builder
 
 ## Author
 Sébastien Lavoie (github@lavoie.sl)
@@ -14,12 +14,17 @@ For example:
   * Determine best $EDITOR/$VISUAL
   * etc.
 
-The goal is to optimize .bashrc and other dotfiles to only include what works. 
+The goal is to optimize `.bashrc` and other dotfiles to only include what works. 
 
 Expensive checks can be done like looping through a lot of choices of even doing a `locate libpng.h`
-because the .bashrc is compiled once, not everytime you start a new shell. 
+because the `.bashrc` is compiled once, not everytime you start a new shell. 
 
 If you modify your installation of your settings, re-run the build script
 
-## TODO
+## Howto
+Right now, it is not very usable, but running [skeleton.sh](skeleton.sh) will output a basic `.bashrc`.
+
+See [examples/.bashrc](examples/.bashrc).
+
+## Todo
 Whole lots of things
