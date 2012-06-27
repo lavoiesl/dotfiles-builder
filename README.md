@@ -22,9 +22,9 @@ because the `.bashrc` is compiled once, not everytime you start a new shell.
 If you modify your installation of your settings, re-run the build script
 
 ## Howto
-Right now, it is not very usable, but running [skeleton.sh](skeleton.sh) will output a basic `.bashrc`.
+Right now, it is not very usable, but running [skeleton.sh](https://github.com/lavoiesl/dotfiles-builder/blob/master/skeleton.sh) will output a basic `.bashrc`.
 
-See [examples/.bashrc](examples/.bashrc).
+See [examples/.bashrc](https://github.com/lavoiesl/dotfiles-builder/blob/master/examples/.bashrc).
 
 ## Todo
 Whole lots of things
