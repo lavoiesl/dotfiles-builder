@@ -1,0 +1,1 @@
+git checkout dev; git branch -D test stage; git pull && git checkout test && git merge dev && git checkout stage && git merge dev && git checkout dev && git push && git branch -D test stage
