@@ -16,7 +16,7 @@ For example:
 
 The goal is to optimize `.bashrc` and other dotfiles to only include what works. 
 
-Expensive checks can be done like looping through a lot of choices of even doing a `locate libpng.h`
+Expensive checks can be done like looping through a lot of choices of even doing a `locate my-program`
 because the `.bashrc` is compiled once, not everytime you start a new shell. 
 
 ## Howto
@@ -34,6 +34,8 @@ If you modify your installation of your settings, re-run the build script
     * $PS1
     * Multiplexer
   * Better multi-platform support
+  * Replace dependency to `bash` with `sh`
+  * Remove dependency to `ruby` for `realpath`
   * Investigate more common practices for dotfiles
   * Add support for more dotfiles
   * Add commands to `skeleton.sh`: `install`, `dump`, `validate`, etc.
