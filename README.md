@@ -19,12 +19,22 @@ The goal is to optimize `.bashrc` and other dotfiles to only include what works.
 Expensive checks can be done like looping through a lot of choices of even doing a `locate libpng.h`
 because the `.bashrc` is compiled once, not everytime you start a new shell. 
 
-If you modify your installation of your settings, re-run the build script
-
 ## Howto
 Right now, it is not very usable, but running [skeleton.sh](https://github.com/lavoiesl/dotfiles-builder/blob/master/skeleton.sh) will output a basic `.bashrc`.
 
 See [examples/.bashrc](https://github.com/lavoiesl/dotfiles-builder/blob/master/examples/.bashrc).
 
+If you modify your installation of your settings, re-run the build script
+
 ## Todo
-Whole lots of things
+
+  * Add config files
+    * Editor preferences
+    * Name, email, etc.
+    * $PS1
+    * Multiplexer
+  * Better multi-platform support
+  * Investigate more common practices for dotfiles
+  * Add support for more dotfiles
+  * Add commands to `skeleton.sh`: `install`, `dump`, `validate`, etc.
+  * Completing this todo
