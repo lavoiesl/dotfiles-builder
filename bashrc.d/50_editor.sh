@@ -7,7 +7,7 @@ if [ -d "$editor_dir" ]; then
   
   for editor in $(ls -1 *); do
     # Escape backslashes and double-quotes
-    content=$(. $editor | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g')
+    content=$(. $editor | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\$/\\\$/g')
     if [[ -n "$content" ]]; then
       echo "export EDITOR=\"$content\""
       echo "export VISUAL=\"$content\""

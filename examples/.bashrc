@@ -38,7 +38,7 @@ zer0prompt
 
 # 50_aliases.sh
 alias git-merge-dev="git checkout dev; git branch -D test stage; git pull && git checkout test && git merge dev && git checkout stage && git merge dev && git checkout dev && git push && git branch -D test stage"
-alias git-root="cd \"$(git root)\""
+alias git-root="cd \"\$(git root)\""
 alias rrm="rm -Rf"
 alias sass-watch="sass --unix-newlines --scss --watch scss:htdocs/css"
 alias validate_php_dir="find . -name \"*.php\" -exec php -l \"{}\" \\;"
