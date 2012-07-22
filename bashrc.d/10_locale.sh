@@ -4,7 +4,7 @@ locales="$(locale -a)"
 
 language=en
 country=US
-charset=UTF-8
+charset="UTF-?8"
 
 locale=$(locale -a | sort -r | grep -iE "${language}(_${country}(\.${charset})?)?$" | head -n1)
 
