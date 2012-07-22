@@ -5,7 +5,6 @@ if program_exists tput && tput setaf 1 >/dev/null; then
   # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
   # a case would tend to support setf rather than setaf.)
   echo 'export CLICOLOR=1'
-  echo 'export LSCOLORS="exfxcxdxbxegedabagacad"'
 
   if [ -f "$HOME/.zer0prompt" ]; then
       echo ". $HOME/.zer0prompt"
