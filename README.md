@@ -1,8 +1,5 @@
 # Dotfiles Builder
 
-## Author
-Sébastien Lavoie (github@lavoie.sl)
-
 ## Description
 Compiles `.zshrc` and `.bashrc` using configurations and doing some tests only once.
 
@@ -77,3 +74,7 @@ If you modify your installation of your settings, re-run the build script
   * Investigate more common practices for dotfiles
   * Add support for more dotfiles
   * Completing this todo
+
+## Author
+Sébastien Lavoie (github@lavoie.sl)
+
