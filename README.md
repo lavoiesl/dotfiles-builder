@@ -10,9 +10,9 @@ For example:
   * Determine best $EDITOR/$VISUAL
   * etc.
 
-The goal is to optimize `.bashrc` to only include what works. 
+The goal is to optimize `.bashrc` to only include what works for this specific computer.
 
-Expensive checks can be done like looping through a lot of choices of even doing a `locate my-program`
+Expensive checks can be done like looping through a lot of choices or even doing a `locate my-program`
 because the `.bashrc` is compiled once, not everytime you start a new shell.
 
 If your current shell is zsh, it will generate a `.zshrc`
