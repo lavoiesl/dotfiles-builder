@@ -7,7 +7,7 @@ if [ -n "$TMUX" ]; then
     }
 
     ssh() {
-        settitle "$($* | head -c 20)"
+        settitle "$(echo $* | head -c 20)"
         command ssh "$@"
         settitle "'$shell'"
     }
