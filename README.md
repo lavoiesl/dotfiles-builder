@@ -21,7 +21,7 @@ If your current shell is zsh, it will generate a `.zshrc`
 
 Functions in [lib.sh](lib.sh) are always available.
 
-### `rc`
+### [`rc`](rc)
 
 All the main script are here, for zsh and bash, it will also include the file in the appropriate folder
 
