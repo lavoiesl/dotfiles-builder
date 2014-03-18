@@ -29,12 +29,12 @@ All the main script are here, for zsh and bash, it will also include the file in
   * A comment will be added before each part saying which script it is from.
   * Files are sorted as if they were all in the same directory.
 
-### `aliases`
+### [`aliases`](aliases)
 
   * Each script must output the value of the alias.
   * Each script must be named as the name of the alias and end with `.sh`.
 
-### `paths`
+### [`paths`](paths)
 
   * Each script must output the value of the path.
   * Each outputted path will be tested for existence, no need to do it.
@@ -42,7 +42,7 @@ All the main script are here, for zsh and bash, it will also include the file in
   * The current `$PATH` will be appended (but will be removed if not existent).
   * Duplicates will be removed.
 
-### `variables`
+### [`variables`](variables)
 
   * Generates a `export VAR="value"` for each variable.
   * Each script must output the value of the variable.
