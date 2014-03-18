@@ -4,7 +4,7 @@
 Sébastien Lavoie (github@lavoie.sl)
 
 ## Description
-Compile several dotfiles using configurations and doing some tests only once.
+Compiles `.zshrc` and `.bashrc` using configurations and doing some tests only once.
 
 For example:
 
@@ -14,15 +14,55 @@ For example:
   * Determine best $EDITOR/$VISUAL
   * etc.
 
-The goal is to optimize `.bashrc` and other dotfiles to only include what works. 
+The goal is to optimize `.bashrc` to only include what works. 
 
 Expensive checks can be done like looping through a lot of choices of even doing a `locate my-program`
-because the `.bashrc` is compiled once, not everytime you start a new shell. 
+because the `.bashrc` is compiled once, not everytime you start a new shell.
 
-## Howto
-Right now, it is not very usable, but running [skeleton.sh](https://github.com/lavoiesl/dotfiles-builder/blob/master/skeleton.sh) will output a basic `.bashrc`.
+If your current shell is zsh, it will generate a `.zshrc`
 
-See [examples/.bashrc](https://github.com/lavoiesl/dotfiles-builder/blob/master/examples/.bashrc).
+## Configuration
+
+### `rc`
+
+All the main script are here, for zsh and bash, it will also include the file in the appropriate folder
+
+  * Each script must output its part
+  * Files are sorted as if they were all in the same directory.
+  * Functions in [lib.sh](lib.sh) are always available.
+
+### `aliases`
+
+  * Each script must output the value of the alias
+  * Each script must be named as the name of the alias and end with `.sh`
+  * Functions in [lib.sh](lib.sh) are always available.
+
+### `paths`
+
+  * Each script must output the value of the path
+  * Each outputted path will be tested for existence, no need to do it
+  * Functions in [lib.sh](lib.sh) are always available.
+  * Files with the highest number will be prepended last so it will have the highest precedence.
+  * The current `$PATH` will be appended (but will be removed if not existent).
+  * Duplicates will be removed.
+
+### variables
+
+  * Generates a `export VAR="value"` for each variable.
+  * Each script must output the value of the variable.
+  * Files in `variables` must be named as the name of the variable and end with `.sh`.
+  * Folders in `variables` must be named as the name of the variable and end with `.d`. For folders, the first script to output something will be kept.
+
+## Usage
+
+Current shell is detected and 
+
+```bash
+skeleton.sh dump # shows the .bashrc that it would generate
+skeleton.sh install # installs it
+```
+
+See [examples/.bashrc](examples/.bashrc) and [examples/.zshrc](examples/.zshrc)
 
 If you modify your installation of your settings, re-run the build script
 
