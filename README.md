@@ -1,6 +1,5 @@
 # Dotfiles Builder
 
-## Description
 Compiles `.zshrc` and `.bashrc` using configurations and doing some tests only once.
 
 For example:
