@@ -1,0 +1,1 @@
+!sh -c '[ $# = 1 ] && git checkout -b "$1" && git push -u origin "$1" || echo "usage: git brp <new branch>" >&2 && exit 1' -

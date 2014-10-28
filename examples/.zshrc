@@ -47,14 +47,45 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# 30_php_version.sh
-source '/usr/local/opt/php-version/php-version.sh' && php-version 5
-
 # zsh/30_prompt.sh
 PROMPT='%{$fg[magenta]%}[%~] %{$reset_color%}'
 
 # 30_scm_breeze.sh
 source '/Users/seb/.scm_breeze/scm_breeze.sh'
+
+# 30_ssh_settitle.sh
+
+if [ -n "$TMUX" ]; then
+    settitle() {
+        printf "\033k$1\033\\"
+    }
+
+    ssh() {
+        settitle "$(echo $* | head -c 20)"
+        command ssh "$@"
+        settitle "zsh"
+    }
+fi
+
+# 30_tmup.sh
+
+if [ -n "$TMUX" ]; then
+    tmup ()
+    {
+        echo -n "Updating to latest tmux environment...";
+        export IFS=",";
+        for line in $(tmux showenv -t $(tmux display -p "#S") | tr "\n" ",");
+        do
+            if [[ $line == -* ]]; then
+                unset $(echo $line | cut -c2-);
+            else
+                export $line;
+            fi;
+        done;
+        unset IFS;
+        echo "Done"
+    }
+fi
 
 # 50_aliases.sh
 alias cacl="find app/logs -name '*.log' -delete && app/console ca:cl --no-warmup"
@@ -91,4 +122,3 @@ then
     exit
   fi
 fi
-

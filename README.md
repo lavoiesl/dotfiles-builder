@@ -10,20 +10,29 @@ For example:
   * Determine best $EDITOR/$VISUAL
   * etc.
 
-The goal is to optimize `.bashrc` to only include what works for this specific computer.
+The goal is to optimize files like `.bashrc` and `.gitconfig` to only include what works for this specific computer.
 
 Expensive checks can be done like looping through a lot of choices or even doing a `locate my-program`
 because the `.bashrc` is compiled once, not everytime you start a new shell.
 
-If your current shell is zsh, it will generate a `.zshrc`
-
-## Configuration
-
 Functions in [lib.sh](lib.sh) are always available.
 
-### [`rc`](rc)
+## Usage
 
-All the main script are here, for zsh and bash, it will also include the file in the appropriate folder
+```bash
+skeleton.sh install # installs it in your home
+skeleton.sh install /tmp/whatever # installs it in another folder
+```
+
+See [examples/](examples/) for a list of generated files.
+
+If you modify your installation of your settings, re-run the build script
+
+## Documentation
+
+### [`rc`](bashrc / zshrc)
+
+All the main scripts are here, for zsh and bash, it will also include the file in the appropriate folder
 
   * Each script must output its part.
   * A comment will be added before each part saying which script it is from.
@@ -49,18 +58,10 @@ All the main script are here, for zsh and bash, it will also include the file in
   * Files in `variables` must be named as the name of the variable and end with `.sh`.
   * Folders in `variables` must be named as the name of the variable and end with `.d`. For folders, the first script to output something will be kept.
 
-## Usage
+### [`dotfiles`](dotfiles)
 
-Current shell is detected.
-
-```bash
-skeleton.sh dump # shows the .bashrc that it would generate
-skeleton.sh install # installs it in your home
-```
-
-See [examples/.bashrc](examples/.bashrc) and [examples/.zshrc](examples/.zshrc)
-
-If you modify your installation of your settings, re-run the build script
+  * Each file will be copied to the destination.
+  * Folders must have a `gen.sh`, it will the executed and its output will be used to generate a file named like the folder.
 
 ## Todo
 
@@ -71,8 +72,7 @@ If you modify your installation of your settings, re-run the build script
     * Multiplexer
   * Remove dependency to `ruby` for `realpath`
   * Investigate more common practices for dotfiles
-  * Add support for more dotfiles
-  * Completing this todo
+  * Completing this todo and documentation
 
 ## Author
 Sébastien Lavoie (github@lavoie.sl)

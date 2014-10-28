@@ -1,0 +1,12 @@
+# Make it use C-a, similar to screen..
+bind-key C-a last-window
+bind-key a send-prefix
+set -g prefix C-a
+ 
+# Reload key
+bind r source-file ~/.tmux.conf
+
+set-window-option -g mode-keys vi
+set-window-option -g mode-mouse on
+set-window-option -g mouse-select-pane off
+set-window-option -g mouse-select-window off

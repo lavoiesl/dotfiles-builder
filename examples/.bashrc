@@ -32,17 +32,48 @@ alias la='ls -FCa'
 alias ll='ls -FCl'
 alias lal='ls -FCal'
 
-# 30_php_version.sh
-source '/usr/local/opt/php-version/php-version.sh' && php-version 5
-
 # bash/30_prompt.sh
 export CLICOLOR=1
 export LSCOLORS="exfxcxdxbxegedabagacad"
-. /Users/seb/.zer0prompt
+. /Users/seb/.zer0prompt.sh
 zer0prompt
 
 # 30_scm_breeze.sh
 source '/Users/seb/.scm_breeze/scm_breeze.sh'
+
+# 30_ssh_settitle.sh
+
+if [ -n "$TMUX" ]; then
+    settitle() {
+        printf "\033k$1\033\\"
+    }
+
+    ssh() {
+        settitle "$(echo $* | head -c 20)"
+        command ssh "$@"
+        settitle "bash"
+    }
+fi
+
+# 30_tmup.sh
+
+if [ -n "$TMUX" ]; then
+    tmup ()
+    {
+        echo -n "Updating to latest tmux environment...";
+        export IFS=",";
+        for line in $(tmux showenv -t $(tmux display -p "#S") | tr "\n" ",");
+        do
+            if [[ $line == -* ]]; then
+                unset $(echo $line | cut -c2-);
+            else
+                export $line;
+            fi;
+        done;
+        unset IFS;
+        echo "Done"
+    }
+fi
 
 # 50_aliases.sh
 alias cacl="find app/logs -name '*.log' -delete && app/console ca:cl --no-warmup"
@@ -71,4 +102,3 @@ then
     exit
   fi
 fi
-

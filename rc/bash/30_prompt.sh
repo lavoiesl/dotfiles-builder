@@ -7,8 +7,8 @@ if program_exists tput && tput setaf 1 >/dev/null; then
   echo 'export CLICOLOR=1'
   echo 'export LSCOLORS="exfxcxdxbxegedabagacad"'
 
-  if [ -f "$HOME/.zer0prompt" ]; then
-      echo ". $HOME/.zer0prompt"
+  if [ -f "$HOME/.zer0prompt.sh" ]; then
+      echo ". $HOME/.zer0prompt.sh"
       echo "zer0prompt"
   else
       echo "PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\\$ '"

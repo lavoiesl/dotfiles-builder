@@ -1,0 +1,1 @@
+log --graph --pretty=format:'%Cred%h %C(yellow)%d %C(bold blue)<%an> %Cgreen(%cr) %n %Creset %s' --abbrev-commit --date=relative
