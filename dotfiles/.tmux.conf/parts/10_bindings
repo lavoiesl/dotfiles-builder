@@ -1,7 +1,8 @@
-# Make it use C-a, similar to screen..
+# act like GNU screen
+unbind C-b
+set -g prefix C-a
 bind-key C-a last-window
 bind-key a send-prefix
-set -g prefix C-a
  
 # Reload key
 bind r source-file ~/.tmux.conf
