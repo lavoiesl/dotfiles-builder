@@ -9,6 +9,7 @@ function rc_dump() {
     files=$(ls -1 *.sh $shell/*.sh | sort_by_filename)
 
     for file in $files; do
+        echo " > $(basename $file)" >&2
         content=$(. "$file")
 
         if [[ -n "$content" ]]; then

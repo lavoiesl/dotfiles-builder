@@ -9,11 +9,13 @@ case "$1" in
         path="${2:-$HOME}"
 
         for file in $(find "${SKELETON_DIR}"/dotfiles -type f -depth 1); do
+            echo "$(basename $file)" >&2
             cp "$file" "${path}/$(basename $file)"
         done
 
         for gen in $(find "${SKELETON_DIR}"/dotfiles -name gen.sh -type f -depth 2); do
             file="$(dirname "${gen}")"
+            echo "$(basename $file)" >&2
             content=$(. "${gen}")
             [ -n "${content}" ] && echo "${content}" > "${path}/$(basename $file)"
         done
