@@ -72,6 +72,7 @@ All the main scripts are here, for zsh and bash, it will also include the file i
     * Multiplexer
   * Remove dependency to `ruby` for `realpath`
   * Investigate more common practices for dotfiles
+    * Investigate https://github.com/mathiasbynens/dotfiles
   * Completing this todo and documentation
 
 ## Author
