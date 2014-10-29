@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "$EC2_HOME/bin"
+[ -n "${EC2_HOME}"] && echo "$EC2_HOME/bin"

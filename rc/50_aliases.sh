@@ -10,8 +10,7 @@ if [ -d "$alias_dir" ]; then
     alias_name=$(basename -s .sh $alias)
 
     if [[ -n "$content" ]]; then
-        # Escape backslashes and double-quotes
-        content=$(echo "$content" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\$/\\\$/g')
+        content="$(escape "${content}" '\' '"' '$')"
         echo alias $alias_name=\"$content\"
     fi
   done

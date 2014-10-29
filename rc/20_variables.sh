@@ -2,7 +2,7 @@
 
 echo_var() {
     var=$1
-    content=$(echo "$2" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\$/\\\$/g')
+    content="$(escape "${2}" '\' '"' '$')"
     echo export $var=\"$content\"
 }
 

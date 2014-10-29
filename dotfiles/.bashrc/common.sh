@@ -6,7 +6,7 @@ function rc_dump() {
     cd "$SKELETON_DIR/rc"
 
     # sort by filename (ignoring directory)
-    files=$(ls -1 *.sh $shell/*.sh | sed -E 's/^(.+)\/([^/]+)$/\2#\1\/\2/' | sort -n | cut -d '#' -f 2)
+    files=$(ls -1 *.sh $shell/*.sh | sort_by_filename)
 
     for file in $files; do
         content=$(. "$file")

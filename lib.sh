@@ -33,8 +33,38 @@ function confirm() {
   local prompt="$1"
 
   read -p "$prompt (Y/n) " reply
-  
+
   [[ $reply != "n" ]]
 
   return $?
+}
+
+# WARNING: if \ is escaped, it must be the first
+function escape() {
+  local content="$1"
+  shift
+
+  for char in $@; do
+    if [ "${char}" = '$' -o "${char}" = '\' ]; then
+      char="\\${char}"
+    fi
+    content="$(echo "${content}" | sed -e "s/${char}/\\\\${char}/g")"
+  done
+
+  echo "${content}"
+}
+
+# Usage: ls -1 * | sort_by_filename
+function sort_by_filename() {
+  while read filename; do echo "${filename}" | sed -E 's/^(.+)\/([^/]+)$/\2#\1\/\2/'; done | sort -n | cut -d '#' -f 2
+}
+
+function cat_or_exec() {
+  local file="${1}"
+
+  if echo "${file}" | grep -q '\.sh$'; then
+    . "${file}"
+  else
+    cat "${file}"
+  fi
 }

@@ -11,17 +11,11 @@ print_section() {
     local section_content=""
 
     for config_file in $(find "${section_dir}" -type f -depth 1 -not -name README); do
-        if echo "${config_file}" | grep -q '\.sh$'; then
-            local content="$(. "${config_file}")"
-            local config="$(basename -s .sh "${config_file}")"
-        else
-            local content="$(cat "${config_file}")"
-            local config="$(basename "${config_file}")"
-        fi
+        local config="$(basename -s .sh "${config_file}")"
+        local content="$(cat_or_exec "${config_file}")"
 
         if [[ -n "${content}" ]]; then
-            # Escape backslashes and double-quotes
-            content=$(echo "${content}" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g')
+            content="$(escape "${content}" '\' '"')"
             section_content="${section_content}\t${config} = \"${content}\"\n"
         fi
     done
