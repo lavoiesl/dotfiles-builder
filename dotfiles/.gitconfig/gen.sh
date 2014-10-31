@@ -10,7 +10,7 @@ print_section() {
     local section="${2}"
     local section_content=""
 
-    for config_file in $(find "${section_dir}" -type f -depth 1 -not -name README); do
+    for config_file in $(find "${section_dir}" -depth 1 -type f -not -name README); do
         local config="$(basename -s .sh "${config_file}")"
         local content="$(cat_or_exec "${config_file}")"
 
@@ -27,11 +27,11 @@ print_section() {
     fi
 }
 
-for section_dir in $(find "${DIR}" -type d -depth 1); do
+for section_dir in $(find "${DIR}" -depth 1 -type d); do
     section="$(basename "${section_dir}")"
     print_section "${section_dir}" "${section}"
 
-    for subsection_dir in $(find "${section_dir}" -type d -depth 1); do
+    for subsection_dir in $(find "${section_dir}" -depth 1 -type d); do
         subsection="${section} \"$(basename -s .d "${subsection_dir}")\""
         print_section "${subsection_dir}" "${subsection}"
     done

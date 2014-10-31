@@ -8,12 +8,12 @@ case "$1" in
     install)
         path="${2:-$HOME}"
 
-        for file in $(find "${SKELETON_DIR}"/dotfiles -type f -depth 1); do
+        for file in $(find "${SKELETON_DIR}"/dotfiles -depth 1 -type f); do
             echo "$(basename $file)" >&2
             cp "$file" "${path}/$(basename $file)"
         done
 
-        for gen in $(find "${SKELETON_DIR}"/dotfiles -name gen.sh -type f -depth 2); do
+        for gen in $(find "${SKELETON_DIR}"/dotfiles -depth 2 -name gen.sh -type f); do
             file="$(dirname "${gen}")"
             echo "$(basename $file)" >&2
             content=$(. "${gen}")
