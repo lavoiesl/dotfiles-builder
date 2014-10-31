@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if program_exists tmux; then
-  echo 'if [ -z "$TMUX" ] && [ "$TERM" = "linux" -o "$TERM" = "rxvt-unicode" -o "$TERM" = "xterm-color" -o "$TERM" = "xterm-256color" -o "$TERM" = "xterm" -o  "$SSH_TTY" = "$(tty)" ]
+  echo 'if [ -z "$TMUX" ] && [ -t 1 -o  "$SSH_TTY" = "$(tty)" ]
 then
   if ! tmux has-session -t main
   then
