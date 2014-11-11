@@ -5,6 +5,11 @@ function program_exists() {
     [ -n "$program" ] && which "$program" >/dev/null
 }
 
+function brew_installed() {
+  local brew="${1}"
+  brew list -1 | grep -q "^${brew}$"
+}
+
 function realpath() {
     local path="$1"
     # readlink of Mac is deficient, use ruby instead
