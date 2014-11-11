@@ -10,7 +10,7 @@ if [ -d "$alias_dir" ]; then
     alias_name=$(basename -s .sh $alias)
 
     if [[ -n "$content" ]]; then
-        content="$(escape "${content}" '\' '"' '$')"
+        content="$(escape_chars "${content}" '\' '"' '$')"
         echo alias $alias_name=\"$content\"
     fi
   done

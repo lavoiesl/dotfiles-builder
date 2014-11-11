@@ -6,7 +6,7 @@ if [ -d "$editor_dir" ]; then
   cd $editor_dir
   
   for editor in $(ls -1 *); do
-    content="$(escape "${editor}" '\' '"' '$')"
+    content="$(escape_chars "${editor}" '\' '"' '$')"
     if [[ -n "$content" ]]; then
       echo "export EDITOR=\"$content\""
       echo "export VISUAL=\"$content\""

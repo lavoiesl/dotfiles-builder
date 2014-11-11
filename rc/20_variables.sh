@@ -2,7 +2,7 @@
 
 echo_var() {
     var=$1
-    content="$(escape "${2}" '\' '"' '$')"
+    content="$(escape_chars "${2}" '\' '"' '$')"
     echo export $var=\"$content\"
 }
 

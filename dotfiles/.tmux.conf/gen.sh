@@ -18,7 +18,7 @@ for side in left right; do
     done
 
     if [[ -n "${status}" ]]; then
-        status="$(escape "${status}" "'" | sed -e 's/^ *//' -e 's/ *$//')"
+        status="$(escape_chars "${status}" "'" | sed -e 's/^ *//' -e 's/ *$//')"
         echo "set -g status-${side} '${status}#[default]'"
     fi
 done

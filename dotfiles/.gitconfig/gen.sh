@@ -15,7 +15,7 @@ print_section() {
         local content="$(cat_or_exec "${config_file}")"
 
         if [[ -n "${content}" ]]; then
-            content="$(escape "${content}" '\' '"')"
+            content="$(escape_chars "${content}" '\' '"')"
             section_content="${section_content}\t${config} = \"${content}\"\n"
         fi
     done
