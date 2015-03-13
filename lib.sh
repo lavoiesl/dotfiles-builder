@@ -112,8 +112,6 @@ function ensure_config_var() {
         value="$(prompt_value "${message}" "${default}")"
         set_config_var "${var}" "${value}"
     fi
-
-    echo "${var}: ${value}" >&2
 }
 
 ##
