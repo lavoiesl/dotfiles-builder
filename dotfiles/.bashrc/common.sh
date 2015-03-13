@@ -3,7 +3,7 @@
 function rc_dump() {
     local shell="$1"
 
-    cd "$SKELETON_DIR/rc"
+    cd "$DOTFILES_DIR/rc"
 
     # sort by filename (ignoring directory)
     files=$(ls -1 *.sh $shell/*.sh | sort_by_filename)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-editor_dir="$SKELETON_DIR/editor.d"
+editor_dir="$DOTFILES_DIR/editor.d"
 
 if [ -d "$editor_dir" ]; then
   cd $editor_dir

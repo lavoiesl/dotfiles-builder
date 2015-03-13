@@ -7,17 +7,18 @@
 *.pyc
 *.pyo
 *.so
+.bundle
 
 # OS generated files
 .Spotlight-V100
-.DS_Store
+*.DS_Store
 .Trashes
 ehthumbs.db
 Icon?
 Thumbs.db
 
 # Temp and swap files
-*.swp
+*.sw[nop]
 *.tmp
 *~
 .*.swp

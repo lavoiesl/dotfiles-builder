@@ -1,6 +1,6 @@
 #!/bin/bash
 
-paths_dir="${SKELETON_DIR}/paths"
+paths_dir="${DOTFILES_DIR}/paths"
 
 default_paths=(
     /usr/local/sbin

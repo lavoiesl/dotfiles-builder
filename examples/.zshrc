@@ -3,18 +3,20 @@
 
 # zsh/01_oh-my-zsh.sh
 ZSH='/Users/seb/.oh-my-zsh'
-ZSH_THEME="wedisagree"
+ZSH_THEME='custom'
 COMPLETION_WAITING_DOTS="true"
 plugins=(
-brew
-composer
-git
-symfony2
-ssh-agent
-svn
+    battery
+    bower
+    brew
+    git
+    symfony2
+    ssh-agent
+    svn
+    vagrant
 )
 zstyle :omz:plugins:ssh-agent agent-forwarding on
-source $ZSH/oh-my-zsh.sh
+source "${ZSH}/oh-my-zsh.sh"
 
 # 10_locale.sh
 export LANG='en_US.UTF-8'
@@ -23,32 +25,22 @@ export LC_ALL='en_US.UTF-8'
 
 # zsh/10_paths.sh
 path=(
-/usr/local/Cellar/php55/5.5.10/bin
-/Users/seb/bin
-/usr/local/sbin
-/usr/local/bin
-/usr/sbin
-/usr/bin
-/sbin
-/bin
-/usr/X11/bin
+    "/Users/seb/bin"
+    "/usr/local/sbin"
+    "/usr/local/bin"
+    "/usr/sbin"
+    "/usr/bin"
+    "/sbin"
+    "/bin"
 )
 
-# 11_java_home.sh
-export JAVA_HOME='/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home'
-
 # 20_variables.sh
-export HOMEBREW_GITHUB_API_TOKEN="4986c7904946eb933487f70457caa531edb2906a"
-export HOMEBREW_TEMP="/usr/local/tmp"
-export EDITOR="subl"
+HOMEBREW_GITHUB_API_TOKEN=INVALID
 
 # 30_grep_aliases.sh
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-
-# zsh/30_prompt.sh
-PROMPT='%{$fg[magenta]%}[%~] %{$reset_color%}'
 
 # 30_scm_breeze.sh
 source '/Users/seb/.scm_breeze/scm_breeze.sh'
@@ -106,7 +98,7 @@ setopt HIST_REDUCE_BLANKS
 cd
 
 # 99_tmux.sh
-if [ -z "$TMUX" ] && [ "$TERM" = "linux" -o "$TERM" = "rxvt-unicode" -o "$TERM" = "xterm-color" -o "$TERM" = "xterm-256color" -o "$TERM" = "xterm" -o  "$SSH_TTY" = "$(tty)" ]
+if [ -z "$TMUX" ] && [ -t 1 -o  "$SSH_TTY" = "$(tty)" ]
 then
   if ! tmux has-session -t main
   then

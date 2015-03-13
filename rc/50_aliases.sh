@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias_dir="$SKELETON_DIR/aliases"
+alias_dir="$DOTFILES_DIR/aliases"
 
 if [ -d "$alias_dir" ]; then
   cd $alias_dir

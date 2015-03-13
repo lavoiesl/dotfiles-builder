@@ -1,0 +1,1 @@
+PermitLocalCommand yes

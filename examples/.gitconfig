@@ -55,14 +55,17 @@
 	untracked = "cyan"
 
 [core]
+	attributesfile = "/Users/seb/.gitattributes"
 	excludesfile = "/Users/seb/.gitignore"
 	pager = "less -FRSX"
+	trustctime = "false"
 	whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol,space-before-tab"
 
 [credential]
 	helper = "osxkeychain"
 
 [diff]
+	renames = "copies"
 	tool = "diffmerge --nosplash"
 
 [difftool "diffmerge"]
@@ -70,6 +73,7 @@
 
 # http://twobitlabs.com/2011/08/install-diffmerge-git-mac-os-x/
 [merge]
+	log = "true"
 	tool = "diffmerge --nosplash"
 
 # http://stackoverflow.com/questions/1251681/diff-tool-generates-unwanted-orig-files

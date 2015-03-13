@@ -7,18 +7,13 @@ export LANGUAGE='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
 # bash/10_paths.sh
-export PATH='/usr/local/Cellar/php55/5.5.10/bin:/Users/seb/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11/bin'
-
-# 11_java_home.sh
-export JAVA_HOME='/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home'
+export PATH='/Users/seb/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 # bash/20_brew_completion.sh
 . /usr/local/etc/bash_completion
 
 # 20_variables.sh
-export HOMEBREW_GITHUB_API_TOKEN="4986c7904946eb933487f70457caa531edb2906a"
-export HOMEBREW_TEMP="/usr/local/tmp"
-export EDITOR="subl"
+HOMEBREW_GITHUB_API_TOKEN=INVALID
 
 # 30_grep_aliases.sh
 alias grep='grep --color=auto'
@@ -86,7 +81,7 @@ alias vihosts="sudo vi /etc/hosts"
 cd
 
 # 99_tmux.sh
-if [ -z "$TMUX" ] && [ "$TERM" = "linux" -o "$TERM" = "rxvt-unicode" -o "$TERM" = "xterm-color" -o "$TERM" = "xterm-256color" -o "$TERM" = "xterm" -o  "$SSH_TTY" = "$(tty)" ]
+if [ -z "$TMUX" ] && [ -t 1 -o  "$SSH_TTY" = "$(tty)" ]
 then
   if ! tmux has-session -t main
   then

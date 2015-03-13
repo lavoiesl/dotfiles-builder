@@ -20,13 +20,29 @@ Functions in [lib.sh](lib.sh) are always available.
 ## Usage
 
 ```bash
-skeleton.sh install # installs it in your home
-skeleton.sh install /tmp/whatever # installs it in another folder
+./install.sh # installs it in your home
+./install.sh /tmp/whatever # installs it in another folder
 ```
 
 See [examples/](examples/) for a list of generated files.
 
-If you modify your installation of your settings, re-run the build script
+If you modify your installation or your settings, re-run the build script.
+
+## Configuration
+
+A folder will be created in `$DOTFILES_INSTALL_PATH/.dotfiles-config`
+
+### Variables
+
+`~/.dotfiles-config/vars` override calculated variables
+
+  * Filename must be the variable’s name
+  * Content must be the variable’s value
+  * Custom variables also supported
+
+### SSH
+
+  Parsed from `$HOME`.
 
 ## Documentation
 
@@ -58,10 +74,15 @@ All the main scripts are here, for zsh and bash, it will also include the file i
   * Files in `variables` must be named as the name of the variable and end with `.sh`.
   * Folders in `variables` must be named as the name of the variable and end with `.d`. For folders, the first script to output something will be kept.
 
+### [`configure`](configure)
+
+  * Scripts that are ran when using `./configure.sh`
+  * Will create configuration files in `$DOTFILES_INSTALL_PATH/.dotfiles-config`
+
 ### [`dotfiles`](dotfiles)
 
   * Each file will be copied to the destination.
-  * Folders must have a `gen.sh`, it will the executed and its output will be used to generate a file named like the folder.
+  * Folders must have a `_generate.sh`, it will the executed and its output will be used to generate a file named like the folder.
 
 ## Todo
 
@@ -73,7 +94,7 @@ All the main scripts are here, for zsh and bash, it will also include the file i
   * Remove dependency to `ruby` for `realpath`
   * Investigate more common practices for dotfiles
     * Investigate https://github.com/mathiasbynens/dotfiles
-  * Completing this todo and documentation
+  * Add documentation for configuration options
 
 ## Author
 Sébastien Lavoie (github@lavoie.sl)

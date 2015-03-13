@@ -4,13 +4,13 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     echo "ZSH='${HOME}/.oh-my-zsh'"
 
     zsh_theme="wedisagree"
-    if [[ -d "${SKELETON_DIR}/rc/zsh/oh-my-zsh/themes" ]]; then
+    if [[ -d "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes" ]]; then
         # symlink all included themes
         [[ -d "${HOME}/.oh-my-zsh/custom/themes" ]] || mkdir "${HOME}/.oh-my-zsh/custom/themes"
-        ln -sf "${SKELETON_DIR}/rc/zsh/oh-my-zsh/themes/"*.zsh-theme "${HOME}/.oh-my-zsh/custom/themes/"
+        ln -sf "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes/"*.zsh-theme "${HOME}/.oh-my-zsh/custom/themes/"
 
         # automically selects the first custom theme
-        theme=$(find "${SKELETON_DIR}/rc/zsh/oh-my-zsh/themes" -name '*.zsh-theme' 2>/dev/null | head -n1)
+        theme=$(find "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes" -name '*.zsh-theme' 2>/dev/null | head -n1)
         if [[ -n "${theme}" ]]; then
             zsh_theme="$(basename -s .zsh-theme "${theme}")"
         fi

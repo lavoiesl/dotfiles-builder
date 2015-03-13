@@ -59,7 +59,7 @@ function prompt_value() {
     [[ -z "${reply}" ]] && reply="${default}"
 
     if [[ -z "${reply}" ]]; then
-        prompt_value "${prompt}" "${default}"
+        prompt_value "${1}" "${2}"
     else
         echo "${reply}"
     fi
@@ -78,6 +78,42 @@ function confirm() {
     read -p "${prompt} (Y/n) " reply
 
     [[ "${reply}" != "n" ]]
+}
+
+function get_config_var() {
+    local var_name="${1}"
+    local config_dir="${DOTFILES_CONFIG_DIR}/vars"
+    local file="${config_dir}/${var_name}"
+
+    if [[ -s "${file}" ]]; then
+        cat "${file}"
+    fi
+}
+
+function set_config_var() {
+    local var_name="${1}"
+    local value="${2}"
+    local config_dir="${DOTFILES_CONFIG_DIR}/vars"
+    local file="${config_dir}/${var_name}"
+
+    [[ -d "${config_dir}" ]] || mkdir -p "${config_dir}"
+
+    echo "${value}" > "${file}"
+}
+
+function ensure_config_var() {
+    local var="${1}"
+    local message="${2:-$var}"
+    local default="${3:-}"
+
+    value="$(get_config_var "${var}")"
+
+    if [[ -z "${value}" ]]; then
+        value="$(prompt_value "${message}" "${default}")"
+        set_config_var "${var}" "${value}"
+    fi
+
+    echo "${var}: ${value}" >&2
 }
 
 ##

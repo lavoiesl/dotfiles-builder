@@ -1,35 +1,51 @@
 #!/bin/bash
 
-echo_var() {
-    var=$1
-    content="$(escape_chars "${2}" '\' '"' '$')"
-    echo export $var=\"$content\"
-}
+var_dir="${DOTFILES_DIR}/variables"
+config_dir="${DOTFILES_CONFIG_DIR}/vars"
 
-var_dir="$SKELETON_DIR/variables"
+if [[ -d "${config_dir}" ]]; then
+    for file in "${config_dir}"/*; do
+        var_name="$(basename "${file}")"
+        content="$(get_config_var "${var_name}")"
+        if [[ -n "${content}" ]]; then
+            conf_var="_DOTFILES_VAR_${var_name}"
+            declare "${conf_var}=${content}"
+        fi
+    done
+fi
 
-if [ -d "$var_dir" ]; then
-    cd $var_dir
+if [ -d "${var_dir}" ]; then
+    cd "${var_dir}"
     
-    for var in $(ls -1 ./*.sh); do
-        var_name=$(basename -s .sh $var)
-        content=$(. $var)
-        if [[ -n "$content" ]]; then
-            echo_var $var_name "$content"
+    for file in $(ls -1 ./*.sh); do
+        var_name="$(basename -s .sh "${file}")"
+        conf_var="_DOTFILES_VAR_${var_name}"
+
+        if [[ -n "${!conf_var}" ]]; then
+            content="$(. "${file}")"
+
+            if [[ -n "${content}" ]]; then
+                declare "${conf_var}=${content}"
+            fi
         fi
     done
 
 
-    for var in $(ls -1d ./*.d); do
-        var_name=$(basename -s .d $var)
+    for folder in $(ls -1d ./*.d); do
+        var_name="$(basename -s .d "${folder}")"
+        conf_var="_DOTFILES_VAR_${var_name}"
 
-        for var2 in $(ls -1 $var/*.sh); do
-            content=$(. $var2)
+        if [[ -n "${!conf_var}" ]]; then
+            for file in $(ls -1 $folder/*.sh); do
+                content="$(. "${file}")"
 
-            if [[ -n "$content" ]]; then
-                echo_var $var_name "$content"
-                break
-            fi
-        done
+                if [[ -n "${content}" ]]; then
+                    declare "${conf_var}=${content}"
+                    break
+                fi
+            done
+        fi
     done
 fi
+
+( set -o posix ; set ) | grep '^_DOTFILES_VAR_' | sed 's/^_DOTFILES_VAR_//'
