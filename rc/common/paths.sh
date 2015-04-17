@@ -1,6 +1,7 @@
 #!/bin/bash
 
 paths_dir="${DOTFILES_DIR}/paths"
+config_dir="${DOTFILES_CONFIG_DIR}/paths"
 
 default_paths=(
     /usr/local/sbin
@@ -32,9 +33,22 @@ for path in $(reverse_args $(echo "${PATH}" | grep -oE '[^:]+')); do
     prepend_path "${path}"
 done
 
+generators=""
+
+# stock generators
+if [[ -d "${paths_dir}" ]]; then
+    generators="$(ls -1 "${paths_dir}"/*)"
+fi
+
+# custom generators
+if [[ -d "${config_dir}" ]]; then
+    generators="${generators}
+$(ls -1 "${config_dir}"/*)"
+fi
+
 # prepend custom PATH in reverse order (to maintain original order)
-if [ -d "${paths_dir}" ]; then
-    for gen in $(ls -1r "${paths_dir}"/*); do
+if [ -n "${generators}" ]; then
+    for gen in $(reverse_args "$(echo "${generators}" | sort_by_filename)"); do
         path=$(cat_or_exec "${gen}")
         for p in $path; do
             prepend_path "$p"

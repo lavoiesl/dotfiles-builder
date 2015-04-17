@@ -66,6 +66,7 @@ All the main scripts are here, for zsh and bash, it will also include the file i
   * Files with the highest number will be prepended last so it will have the highest precedence.
   * The current `$PATH` will be appended (but will be removed if not existent).
   * Duplicates will be removed.
+  * You can add custom generators in `$DOTFILES_INSTALL_PATH/.dotfiles-config/paths`.
 
 ### [`variables`](variables)
 
@@ -77,7 +78,7 @@ All the main scripts are here, for zsh and bash, it will also include the file i
 ### [`configure`](configure)
 
   * Scripts that are ran when using `./configure.sh`
-  * Will create configuration files in `$DOTFILES_INSTALL_PATH/.dotfiles-config`
+  * Will create configuration files in `$DOTFILES_INSTALL_PATH/.dotfiles-config`.
 
 ### [`dotfiles`](dotfiles)
 
