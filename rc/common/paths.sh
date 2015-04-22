@@ -33,28 +33,13 @@ for path in $(reverse_args $(echo "${PATH}" | grep -oE '[^:]+')); do
     prepend_path "${path}"
 done
 
-generators=""
-
-# stock generators
-if [[ -d "${paths_dir}" ]]; then
-    generators="$(ls -1 "${paths_dir}"/*)"
-fi
-
-# custom generators
-if [[ -d "${config_dir}" ]]; then
-    generators="${generators}
-$(ls -1 "${config_dir}"/*)"
-fi
-
 # prepend custom PATH in reverse order (to maintain original order)
-if [ -n "${generators}" ]; then
-    for gen in $(reverse_args "$(echo "${generators}" | sort_by_filename)"); do
-        path=$(cat_or_exec "${gen}")
-        for p in $path; do
-            prepend_path "$p"
-        done
+for gen in $(reverse_args "$(get_sorted_files "${paths_dir}" "${config_dir}")"); do
+    path=$(cat_or_exec "${gen}")
+    for p in $path; do
+        prepend_path "$p"
     done
-fi
+done
 
 # See http://stackoverflow.com/questions/11532157/unix-removing-duplicate-lines-without-sorting
 echo $paths | grep -oE '[^:]+' | awk ' !x[$0]++'
