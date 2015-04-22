@@ -150,6 +150,24 @@ function sort_by_filename() {
 }
 
 ##
+# Get files, sorted by filename, of all folders
+#
+# @param string folder*
+# @output One path per line
+function get_sorted_files() {
+    local files=""
+
+    for folder in $@; do
+        if [[ -d "${folder}" ]]; then
+            files="${files}
+$(ls -1 ${folder}/*)"
+        fi
+    done
+
+    echo "${files}" | sort_by_filename
+}
+
+##
 # cat a file. If it ends with .sh, execute it instead
 # 
 # @param string file path
