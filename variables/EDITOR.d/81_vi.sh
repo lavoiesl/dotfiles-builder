@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if program_exists vi; then
-  echo 'vi'
+  which vi
 fi

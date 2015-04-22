@@ -21,7 +21,7 @@ if [ -d "${var_dir}" ]; then
         var_name="$(basename -s .sh "${file}")"
         conf_var="_DOTFILES_VAR_${var_name}"
 
-        if [[ -n "${!conf_var}" ]]; then
+        if [[ -z "${!conf_var}" ]]; then
             content="$(. "${file}")"
 
             if [[ -n "${content}" ]]; then
@@ -35,7 +35,7 @@ if [ -d "${var_dir}" ]; then
         var_name="$(basename -s .d "${folder}")"
         conf_var="_DOTFILES_VAR_${var_name}"
 
-        if [[ -n "${!conf_var}" ]]; then
+        if [[ -z "${!conf_var}" ]]; then
             for file in $(ls -1 $folder/*.sh); do
                 content="$(. "${file}")"
 
