@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'unalias pu'
+echo 'unalias po'
 echo 'unsetopt correct'
 echo 'unsetopt correct_all'
 echo 'setopt APPEND_HISTORY'
