@@ -7,13 +7,11 @@ ZSH_THEME='custom'
 COMPLETION_WAITING_DOTS="true"
 plugins=(
     battery
-    bower
     brew
     git
     symfony2
     ssh-agent
     svn
-    vagrant
 )
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 source "${ZSH}/oh-my-zsh.sh"
@@ -22,10 +20,14 @@ source "${ZSH}/oh-my-zsh.sh"
 export LANG='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
+export LESSCHARSET='UTF-8'
 
 # zsh/10_paths.sh
 path=(
     "/Users/seb/bin"
+    "/opt/X11/bin"
+    "/usr/X11/bin"
+    "/Users/seb/.rvm/bin"
     "/usr/local/sbin"
     "/usr/local/bin"
     "/usr/sbin"
@@ -35,15 +37,15 @@ path=(
 )
 
 # 20_variables.sh
-HOMEBREW_GITHUB_API_TOKEN=INVALID
+export EDITOR=subl
+export HOMEBREW_GITHUB_API_TOKEN=INVALID
+export HOMEBREW_TEMP=/usr/local/tmp
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 
 # 30_grep_aliases.sh
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-
-# 30_scm_breeze.sh
-source '/Users/seb/.scm_breeze/scm_breeze.sh'
 
 # 30_ssh_settitle.sh
 
@@ -87,6 +89,8 @@ alias validate_php_dir="find . -name \"*.php\" -exec php -l \"{}\" \\;"
 alias vihosts="sudo vi /etc/hosts"
 
 # zsh/90_zsh_options.sh
+unalias pu
+unalias po
 unsetopt correct
 unsetopt correct_all
 setopt APPEND_HISTORY

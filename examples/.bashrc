@@ -5,15 +5,16 @@
 export LANG='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
+export LESSCHARSET='UTF-8'
 
 # bash/10_paths.sh
-export PATH='/Users/seb/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-
-# bash/20_brew_completion.sh
-. /usr/local/etc/bash_completion
+export PATH='/Users/seb/bin:/opt/X11/bin:/usr/X11/bin:/Users/seb/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 # 20_variables.sh
-HOMEBREW_GITHUB_API_TOKEN=INVALID
+export EDITOR=subl
+export HOMEBREW_GITHUB_API_TOKEN=INVALID
+export HOMEBREW_TEMP=/usr/local/tmp
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 
 # 30_grep_aliases.sh
 alias grep='grep --color=auto'
@@ -28,13 +29,10 @@ alias ll='ls -FCl'
 alias lal='ls -FCal'
 
 # bash/30_prompt.sh
-export CLICOLOR=1
-export LSCOLORS="exfxcxdxbxegedabagacad"
+export CLICOLOR='1'
+export LSCOLORS='exfxcxdxbxegedabagacad'
 . /Users/seb/.zer0prompt.sh
 zer0prompt
-
-# 30_scm_breeze.sh
-source '/Users/seb/.scm_breeze/scm_breeze.sh'
 
 # 30_ssh_settitle.sh
 
