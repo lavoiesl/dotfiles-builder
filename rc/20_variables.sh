@@ -48,4 +48,4 @@ if [ -d "${var_dir}" ]; then
     done
 fi
 
-( set -o posix ; set ) | grep '^_DOTFILES_VAR_' | sed 's/^_DOTFILES_VAR_//'
+( set -o posix ; set ) | grep '^_DOTFILES_VAR_' | sed -e 's/^_DOTFILES_VAR_//' -e 's/^/export /'

@@ -124,7 +124,7 @@ function ensure_config_var() {
 # @outputs Escaped string
 #
 function escape_chars() {
-    local content="$1"
+    local content="${1}"
     shift
 
     for char in $@; do
@@ -135,6 +135,32 @@ function escape_chars() {
     done
 
     echo "${content}"
+}
+
+##
+# Wrap a string with single quotes
+# Single quotes inside it will be escaped properly
+#
+function wrap_single_quote() {
+    local content="${1}"
+
+    echo "'$(echo "${content}" | sed "s/'/'\"'\"'/g")'"
+}
+
+function echo_export_single_quote() {
+    local var="${1}"
+    local content="${2}"
+    local quoted="$(wrap_single_quote "${content}")"
+
+    echo "export ${var}=${quoted}"
+}
+
+function echo_export_double_quote() {
+    local var="${1}"
+    local content="${2}"
+    local escaped="$(escape_chars '\' '"')"
+
+    echo "export ${var}=\"${escaped}\""
 }
 
 ##
