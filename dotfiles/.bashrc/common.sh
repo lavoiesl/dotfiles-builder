@@ -3,6 +3,8 @@
 function rc_dump() {
     local shell="$1"
 
+    echo "#!/usr/bin/env ${shell}"
+    echo
     cd "$DOTFILES_DIR/rc"
 
     # sort by filename (ignoring directory)
