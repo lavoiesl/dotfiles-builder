@@ -1,3 +1,2 @@
 set-option -g history-limit 4096
 set -g visual-bell off
-set-option -g status-utf8 on
