@@ -29,9 +29,9 @@ for path in $(reverse_args ${default_paths[@]}); do
 done
 
 # prepend current PATH in reverse order (to maintain original order)
-for path in $(reverse_args $(echo "${PATH}" | grep -oE '[^:]+')); do
-    prepend_path "${path}"
-done
+# for path in $(reverse_args $(echo "${PATH}" | grep -oE '[^:]+')); do
+#     prepend_path "${path}"
+# done
 
 # prepend custom PATH in reverse order (to maintain original order)
 for gen in $(reverse_args "$(get_sorted_files "${paths_dir}" "${config_dir}")"); do
