@@ -21,6 +21,7 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
 
     echo 'plugins=('
                                        echo "    battery"
+                                       echo "    history"
         program_exists bower        && echo "    bower"
         program_exists brew         && echo "    brew"
         program_exists brew-cask.rb && echo "    brew-cask"
