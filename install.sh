@@ -41,4 +41,4 @@ function recursive_install() {
 }
 
 
-recursive_install "${DOTFILES_INSTALL_PATH}" "${DOTFILES_DIR}/dotfiles"
+recursive_install "${DOTFILES_INSTALL_PATH}" "${DOTFILES_CONFIG_DIR}/dotfiles"
