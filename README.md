@@ -15,7 +15,27 @@ The goal is to optimize files like `.bashrc` and `.gitconfig` to only include wh
 Expensive checks can be done like looping through a lot of choices or even doing a `locate my-program`
 because the `.bashrc` is compiled once, not everytime you start a new shell.
 
-Functions in [lib.sh](lib.sh) are always available.
+Will auto-detect the presence of many tools and configure accordingly:
+
+  * bash
+  * boot2docker
+  * docker
+  * git
+    * diff-so-fancy
+    * diffmerge
+    * Kaleidoscope
+  * homebrew
+  * mysql
+  * npm
+  * php
+  * rvm
+  * screen
+  * tmux
+    * battery-status
+    * temperature
+  * vagrant
+  * zsh
+    * oh-my-zsh
 
 ## Usage
 
@@ -46,7 +66,9 @@ A folder will be created in `$DOTFILES_INSTALL_PATH/.dotfiles-config`
 
 ## Documentation
 
-### [`rc`](bashrc / zshrc)
+Functions in [lib.sh](lib.sh) are always available.
+
+### [`.bashrc` / `.zshrc`](rc)
 
 All the main scripts are here, for zsh and bash, it will also include the file in the appropriate folder
 
@@ -84,6 +106,12 @@ All the main scripts are here, for zsh and bash, it will also include the file i
 
   * Each file will be copied to the destination.
   * Folders must have a `_generate.sh`, it will the executed and its output will be used to generate a file named like the folder.
+
+
+#### [`.gitconfig`](dotfiles/.gitconfig.dist)
+
+  * Creates a `~/.gitconfig.dist`, which gets included from `~/.gitconfig`.
+  * Contains many [aliases](dotfiles/.gitconfig.dist/alias) and auto-detected features.
 
 ## Todo
 
