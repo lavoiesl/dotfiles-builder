@@ -14,6 +14,20 @@ function program_exists() {
 }
 
 ##
+# Determine if a mac Application exists
+#
+# @uses program_exists
+# @uses mdfind
+# @param string bundle name
+# @returns success code
+#
+function mac_app_exists() {
+    local bundle="$1"
+
+    program_exists "mdfind" && [ -n "$(mdfind "kMDItemCFBundleIdentifier == '${bundle}'")" ]
+}
+
+##
 # Determine if a brew is installed.
 #
 # @uses brew

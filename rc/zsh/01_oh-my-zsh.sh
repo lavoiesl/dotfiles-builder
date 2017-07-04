@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [[ -d "${HOME}/.oh-my-zsh" ]]; then
-    echo "ZSH='${HOME}/.oh-my-zsh'"
+if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
+    echo "ZSH='${DOTFILES_INSTALL_PATH}/.oh-my-zsh'"
 
     zsh_theme="wedisagree"
     if [[ -d "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes" ]]; then
         # symlink all included themes
-        [[ -d "${HOME}/.oh-my-zsh/custom/themes" ]] || mkdir "${HOME}/.oh-my-zsh/custom/themes"
-        ln -sf "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes/"*.zsh-theme "${HOME}/.oh-my-zsh/custom/themes/"
+        [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh/custom/themes" ]] || mkdir "${DOTFILES_INSTALL_PATH}/.oh-my-zsh/custom/themes"
+        ln -sf "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes/"*.zsh-theme "${DOTFILES_INSTALL_PATH}/.oh-my-zsh/custom/themes/"
 
         # automically selects the first custom theme
         theme=$(find "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes" -name '*.zsh-theme' 2>/dev/null | head -n1)
