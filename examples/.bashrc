@@ -31,7 +31,7 @@ export LC_ALL='en_US.UTF-8'
 export LESSCHARSET='UTF-8'
 
 # bash/10_paths.sh
-export PATH='/Users/seb/bin:/usr/X11/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+export PATH='/Users/lavoie_sl/bin:/usr/X11/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 # bash/20_brew_completion.sh
 . /usr/local/etc/bash_completion
@@ -57,11 +57,11 @@ alias lal='ls -FCal'
 # bash/30_prompt.sh
 export CLICOLOR='1'
 export LSCOLORS='exfxcxdxbxegedabagacad'
-. /Users/seb/.zer0prompt.sh
+. /Users/lavoie_sl/.zer0prompt.sh
 zer0prompt
 
 # 30_rvm.sh
-source "/Users/seb/.rvm/scripts/rvm"
+source "/Users/lavoie_sl/.rvm/scripts/rvm"
 
 # 30_ssh_settitle.sh
 

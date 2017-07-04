@@ -1,0 +1,130 @@
+# http://blog.lavoie.sl/2012/10/git-tutorial-and-global-configs.html
+
+[alias]
+	alias = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
+	aliases = "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
+	br = "branch"
+	br-gone = "!git branch -vv | grep -F ': gone]' | awk '{ print $1 }' | grep -vF '*'"
+	br-prune = "!git branch -vv --merged | grep -F ': gone]' | awk '{ print $1 }' | grep -vF '*' | xargs git branch -d"
+	brp = "!sh -c '[ $# = 1 ] && git checkout -b \"$1\" && git push -u origin \"$1\" || echo \"usage: git brp <new branch>\" >&2 && exit 1' -"
+	checkout-pr = "!sh -c 'pr=\"$1\"; remote=${2:-origin}; [ -n \"$pr\" ] && (br=\"pr${pr}\"; if [ \"$(git rev-parse --abbrev-ref HEAD)\" = $br ]; then git pull --autostash --rebase $remote pull/$pr/head; else git fetch $remote +pull/$pr/head:$br && git checkout $br; fi) || echo \"usage: git checkout-pr 123 <origin>\" >&2 && exit 1' -"
+	ci = "commit"
+	co = "checkout"
+	d = "diff"
+	dc = "diff --cached"
+	dn = "diff --name-status"
+	forest = "log --pretty=format:'%H%d: %s%n  %ad %n  %an (%ae)' --graph --all"
+	ign = "ls-files -o -i --exclude-standard"
+	lg = "log --graph --pretty=format:'%Cred%h %C(yellow)%d %C(bold blue)<%an> %Cgreen(%cr) %n %Creset %s' --abbrev-commit --date=relative"
+	lg-local = "!git lg $(git branch | tr -d ' *' | awk '{ print \"master~1..\"$0 }')"
+	pp = "!git pull && git push"
+	pu = "!git push -u origin HEAD:$(git rev-parse --abbrev-ref HEAD)"
+	rank = "shortlog -sn --no-merges"
+	rbp = "!sh -c 'git pull && git rebase master && git push -f origin $(git br | grep \"^\\*\" | sed \"s/^\\* *//\")'"
+	root = "rev-parse --show-toplevel"
+	s = "show"
+	searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
+	sn = "show --name-status --pretty=fuller"
+	st = "status"
+	tree = "log --pretty=format:'%H%d: %s%n  %ad %n  %an (%ae)' --graph"
+	w = "whatchanged"
+	who = "shortlog -s --"
+
+[apply]
+	whitespace = "fix"
+
+# http://stevenharman.net/git-pull-with-automatic-rebase
+[branch]
+	autosetuprebase = "always"
+
+[color]
+	branch = "auto"
+	diff = "auto"
+	interactive = "auto"
+	pager = "true"
+	status = "auto"
+	ui = "true"
+
+[color "branch"]
+	current = "yellow reverse"
+	local = "yellow"
+	remote = "green"
+
+[color "diff"]
+	frag = "magenta bold"
+	meta = "yellow bold"
+	new = "green bold"
+	old = "red bold"
+
+[color "status"]
+	added = "yellow"
+	changed = "green"
+	untracked = "cyan"
+
+[commit]
+	gpgsign = "true"
+
+[core]
+	attributesfile = "/Users/lavoie_sl/.gitattributes"
+	editor = "/usr/local/bin/vim"
+	excludesfile = "/Users/lavoie_sl/.gitignore"
+	pager = "diff-so-fancy"
+	trustctime = "false"
+	whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol,space-before-tab"
+
+[credential]
+	helper = "osxkeychain"
+
+[diff]
+	compactionHeuristic = "true"
+	renames = "copies"
+	tool = "Kaleidoscope"
+
+# https://github.com/so-fancy/diff-so-fancy
+[diff-so-fancy]
+	changeHunkIndicators = "false"
+	markEmptyLines = "false"
+	stripLeadingSymbols = "false"
+
+[difftool]
+	prompt = "false"
+
+[difftool "Kaleidoscope"]
+	cmd = "ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\""
+
+[fetch]
+	prune = "true"
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	required = "true"
+	smudge = "git-lfs smudge -- %f"
+
+[interactive]
+	diffFilter = "diff-so-fancy"
+
+# http://twobitlabs.com/2011/08/install-diffmerge-git-mac-os-x/
+[merge]
+	log = "true"
+	tool = "Kaleidoscope"
+
+# http://stackoverflow.com/questions/1251681/diff-tool-generates-unwanted-orig-files
+[mergetool]
+	keepBackup = "false"
+
+[mergetool "Kaleidoscope"]
+	cmd = "ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot"
+	trustExitCode = "true"
+
+[pager]
+	diff = "diff-so-fancy | less --tabs=4 -RFX"
+	show = "diff-so-fancy | less --tabs=4 -RFX"
+
+# http://pivotallabs.com/users/alex/blog/articles/883-git-config-push-default-matching
+[push]
+	default = "upstream"
+
+[user]
+	email = "lavoie_sl@apple.com"
+	name = "Sebastien Lavoie"
+	signingkey = "706C5F8A43AD63B9"

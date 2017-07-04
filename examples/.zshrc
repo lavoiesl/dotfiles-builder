@@ -32,7 +32,7 @@ export LESSCHARSET='UTF-8'
 
 # zsh/20_paths.sh
 path=(
-    "/Users/seb/bin"
+    "/Users/lavoie_sl/bin"
     "/usr/X11/bin"
     "/usr/local/sbin"
     "/usr/local/bin"
@@ -54,7 +54,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # 30_rvm.sh
-source "/Users/seb/.rvm/scripts/rvm"
+source "/Users/lavoie_sl/.rvm/scripts/rvm"
 
 # 30_ssh_settitle.sh
 
