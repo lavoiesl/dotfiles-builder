@@ -1,0 +1,1 @@
+!git branch -vv | grep -F ': gone]' | awk '{ print $1 }' | grep -vF '*'

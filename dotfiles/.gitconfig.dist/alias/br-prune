@@ -1,0 +1,1 @@
+!git branch -vv --merged | grep -F ': gone]' | awk '{ print $1 }' | grep -vF '*' | xargs git branch -d

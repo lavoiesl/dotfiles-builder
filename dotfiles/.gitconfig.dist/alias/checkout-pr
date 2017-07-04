@@ -1,0 +1,1 @@
+!sh -c 'pr="$1"; remote=${2:-origin}; [ -n "$pr" ] && (br="pr${pr}"; if [ "$(git rev-parse --abbrev-ref HEAD)" = $br ]; then git pull --autostash --rebase $remote pull/$pr/head; else git fetch $remote +pull/$pr/head:$br && git checkout $br; fi) || echo "usage: git checkout-pr 123 <origin>" >&2 && exit 1' -
