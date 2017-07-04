@@ -79,7 +79,3 @@
 # http://pivotallabs.com/users/alex/blog/articles/883-git-config-push-default-matching
 [push]
 	default = "upstream"
-
-[user]
-	email = "github@lavoie.sl"
-	name = "Sebastien Lavoie"
