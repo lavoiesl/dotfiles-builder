@@ -26,10 +26,15 @@ if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
         program_exists brew         && echo "    brew"
         program_exists brew-cask.rb && echo "    brew-cask"
         program_exists composer     && echo "    composer"
+        program_exists docker       && echo "    docker"
+        program_exists gem          && echo "    gem"
         program_exists git          && echo "    git"
+        program_exists npm          && echo "    npm"
         program_exists php          && echo "    symfony2"
+        program_exists python       && echo "    python"
         program_exists ssh-agent    && echo "    ssh-agent"
         program_exists svn          && echo "    svn"
+        program_exists tmux         && echo "    tmux"
         program_exists vagrant      && echo "    vagrant"
     echo ')'
 
