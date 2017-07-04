@@ -6,107 +6,163 @@
 # - Open Terminal preferences. Go to Settings -> Text -> More
 # - Change default colours to your liking.
 #
-# Here are the colours from Textmate's Monokai theme:
-#
-# Black: 0, 0, 0
-# Red: 229, 34, 34
-# Green: 166, 227, 45
-# Yellow: 252, 149, 30
-# Blue: 196, 141, 255
-# Magenta: 250, 37, 115
-# Cyan: 103, 217, 240
-# White: 242, 242, 242
-
-# Thanks to Steve Losh: http://stevelosh.com/blog/2009/03/candy-colored-terminal/
-
-# The prompt
-
-# PROMPT='%{$fg[magenta]%}[%c] %{$reset_color%}'
-PROMPT='%F{magenta}[${${PWD/#%$HOME/~}/#$HOME\//~/}] %f'
-
-# The right-hand prompt
 
 # RPROMPT='${time} %{$fg[magenta]%}$(git_prompt_info)%{$reset_color%}$(git_prompt_status)%{$reset_color%}$(git_prompt_ahead)%{$reset_color%}'
-RPROMPT='${time}%{$reset_color%}'
-
-[ -n "$(battery_pct_prompt)" ] && RPROMPT="${RPROMPT} \$(battery_pct_prompt)%{\$reset_color%}"
+# RPROMPT='${time}%{$reset_color%}'
 
 # Add this at the start of RPROMPT to include rvm info showing ruby-version@gemset-name
 # %{$fg[yellow]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}
 
+# oh-my-zsh Bureau Theme
+
+# "%F{magenta}[${${PWD/#%$HOME/~}/#$HOME\//~/}] %f"
+
+ZSH_THEME_BRACKET_LEFT="["
+ZSH_THEME_BRACKET_RIGHT="]"
+
+ZSH_THEME_PATH="%{$fg[magenta]%}${ZSH_THEME_BRACKET_LEFT}%~${ZSH_THEME_BRACKET_RIGHT}%{$reset_color%}"
+
 # local time, color coded by last return code
-time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
-time_disabled="%{$fg[green]%}%*%{$reset_color%}"
-time=$time_enabled
+# ZSH_THEME_TIME="%(?.%{$fg[cyan]%}.%{$fg[red]%})${ZSH_THEME_BRACKET_LEFT}%*${ZSH_THEME_BRACKET_RIGHT}%{$reset_color%}"
+ZSH_THEME_TIME="%{$fg[yellow]%}${ZSH_THEME_BRACKET_LEFT}%*${ZSH_THEME_BRACKET_RIGHT}%{$reset_color%}"
 
-# ZSH_THEME_GIT_PROMPT_PREFIX=" ☁  %{$fg[red]%}"
-# ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-# ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%} ☂" # Ⓓ
-# ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭" # ⓣ
-# ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ☀" # Ⓞ
+ZSH_THEME_EXIT_CODE="%(?..%{$fg[red]%}${ZSH_THEME_BRACKET_LEFT}%?${ZSH_THEME_BRACKET_RIGHT}%{$reset_color%} )"
 
-# ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%} ✚" # ⓐ ⑃
-# ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%} ⚡"  # ⓜ ⑁
-# ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖" # ⓧ ⑂
-# ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%} ➜" # ⓡ ⑄
-# ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%} ♒" # ⓤ ⑊
-# ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[blue]%} 𝝙"
 
-# More symbols to choose from:
-# ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
-# ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠
-# ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬟  ⬤ 〒 ǀ ǁ ǂ ĭ Ť Ŧ
+if [ -n "$(battery_pct_prompt)" ]; then
+  ZSH_THEME_BATTERY=" \$(battery_pct_prompt)%{\$reset_color%}"
+fi
 
-# Determine if we are using a gemset.
-# function rvm_gemset() {
-#     GEMSET=`rvm gemset list | grep '=>' | cut -b4-`
-#     if [[ -n $GEMSET ]]; then
-#         echo "%{$fg[yellow]%}$GEMSET%{$reset_color%}|"
-#     fi
-# }
+### NVM
 
-# Determine the time since last commit. If branch is clean,
-# use a neutral color, otherwise colors will vary according to time.
-# function git_time_since_commit() {
-#     if git rev-parse --git-dir > /dev/null 2>&1; then
-#         # Only proceed if there is actually a commit.
-#         if [[ $(git log 2>&1 > /dev/null | grep -c "^fatal: bad default revision") == 0 ]]; then
-#             # Get the last commit.
-#             last_commit=`git log --pretty=format:'%at' -1 2> /dev/null`
-#             now=`date +%s`
-#             seconds_since_last_commit=$((now-last_commit))
-#
-#             # Totals
-#             MINUTES=$((seconds_since_last_commit / 60))
-#             HOURS=$((seconds_since_last_commit/3600))
-#
-#             # Sub-hours and sub-minutes
-#             DAYS=$((seconds_since_last_commit / 86400))
-#             SUB_HOURS=$((HOURS % 24))
-#             SUB_MINUTES=$((MINUTES % 60))
-#
-#             if [[ -n $(git status -s 2> /dev/null) ]]; then
-#                 if [ "$MINUTES" -gt 30 ]; then
-#                     COLOR="$ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG"
-#                 elif [ "$MINUTES" -gt 10 ]; then
-#                     COLOR="$ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM"
-#                 else
-#                     COLOR="$ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT"
-#                 fi
-#             else
-#                 COLOR="$ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL"
-#             fi
-#
-#             if [ "$HOURS" -gt 24 ]; then
-#                 echo "($(rvm_gemset)$COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%}|"
-#             elif [ "$MINUTES" -gt 60 ]; then
-#                 echo "($(rvm_gemset)$COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%}|"
-#             else
-#                 echo "($(rvm_gemset)$COLOR${MINUTES}m%{$reset_color%}|"
-#             fi
-#         else
-#             COLOR="$ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL"
-#             echo "($(rvm_gemset)$COLOR~|"
-#         fi
-#     fi
-# }
+# ZSH_THEME_NVM_PROMPT_PREFIX="%B⬡%b "
+# ZSH_THEME_NVM_PROMPT_SUFFIX=""
+
+### Git
+
+ZSH_THEME_GIT_PROMPT_PREFIX="${ZSH_THEME_BRACKET_LEFT}%{$fg_bold[green]%}➦ %{$reset_color%}%{$fg_bold[white]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}${ZSH_THEME_BRACKET_RIGHT}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✓%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[cyan]%}▴%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[magenta]%}▾%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
+
+custom_git_branch () {
+  if [ "$(command git config --bool --get zsh-prompt.branch)" != "false" ]; then
+    ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
+    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+    echo "${ref#refs/heads/}"
+  fi
+}
+
+custom_git_status() {
+  _STATUS=""
+
+  if [ "$(command git config --bool --get zsh-prompt.status)" != "false" ]; then
+    # git config zsh-prompt.status-options "--ignore-submodules -uno"
+    local git_options="$(command git config --get zsh-prompt.status-options)"
+    _INDEX="$(command git status ${git_options} --porcelain 2> /dev/null)"
+
+    # check status of files
+    if [[ -n "${_INDEX}" ]]; then
+      if $(echo "${_INDEX}" | command grep -q '^[AMRD]. '); then
+        _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_STAGED}"
+      fi
+      if $(echo "${_INDEX}" | command grep -q '^.[MTD] '); then
+        _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_UNSTAGED}"
+      fi
+      if $(echo "${_INDEX}" | command grep -q -E '^\?\? '); then
+        _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_UNTRACKED}"
+      fi
+      if $(echo "${_INDEX}" | command grep -q '^UU '); then
+        _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_UNMERGED}"
+      fi
+    else
+      _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}"
+    fi
+  
+    # check status of local repository
+    if $(echo "${_INDEX}" | command grep -q '^## .*ahead'); then
+      _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_AHEAD}"
+    fi
+    if $(echo "${_INDEX}" | command grep -q '^## .*behind'); then
+      _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_BEHIND}"
+    fi
+    if $(echo "${_INDEX}" | command grep -q '^## .*diverged'); then
+      _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_DIVERGED}"
+    fi
+  
+    if $(command git rev-parse --verify refs/stash &> /dev/null); then
+      _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_STASHED}"
+    fi
+  fi
+
+  echo "${_STATUS}"
+}
+
+custom_git_prompt () {
+  local _branch=$(custom_git_branch)
+  local _status=$(custom_git_status)
+  local _result=""
+  if [[ "${_branch}x" != "x" ]]; then
+    _result="${ZSH_THEME_GIT_PROMPT_PREFIX}${_branch}"
+    if [[ "${_status}x" != "x" ]]; then
+      _result="${_result} ${_status}"
+    fi
+    _result="${_result}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
+  fi
+  # Pad
+  if [[ "${_result}" != "" ]]; then
+    _result="${_result} "
+  fi
+  echo "${_result}"
+}
+
+if [[ $EUID -eq 0 ]]; then
+  _USERNAME="%{$fg_bold[red]%}%n"
+  _ANCHOR="%{$fg[red]%}#"
+else
+  _USERNAME="%{$fg_bold[white]%}%n"
+  _ANCHOR="%{$fg[green]%}$"
+fi
+_USERNAME="${ZSH_THEME_BRACKET_LEFT}$_USERNAME%{$reset_color%}@%m${ZSH_THEME_BRACKET_RIGHT} "
+_ANCHOR="$_ANCHOR%{$reset_color%}"
+
+get_space () {
+  # Use awk because macOS has BSD sed.
+  # Use wc -m because macOS awk doesn't support multi-byte
+  local LENGTH="$(echo -n "$1$2" | awk '{gsub(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/,""); print}' | wc -m)"
+  local SPACES=""
+  (( LENGTH = ${COLUMNS} - $LENGTH ))
+
+  for i in {0..$LENGTH}
+    do
+      SPACES="$SPACES "
+    done
+
+  echo $SPACES
+}
+
+# _USERNAME not used
+# \$(nvm_prompt_info) not used
+_1LEFT="╭─${ZSH_THEME_PATH}"
+_1RIGHT="\$(custom_git_prompt)${ZSH_THEME_TIME}${ZSH_THEME_BATTERY}"
+
+
+custom_precmd () {
+  # Do "right" before because it checks the last exit code
+  local right_eval="$(print -rP ${_1RIGHT})"
+  local left_eval="$(print -rP ${_1LEFT})"
+
+  local spaces="$(get_space "${left_eval}" "${right_eval}")"
+  echo "${left_eval}${spaces}${right_eval}"
+}
+
+setopt prompt_subst
+PROMPT='╰─${ZSH_THEME_EXIT_CODE}${_ANCHOR} '
+
+autoload -U add-zsh-hook
+add-zsh-hook precmd custom_precmd
+
