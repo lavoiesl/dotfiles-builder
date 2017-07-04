@@ -62,7 +62,8 @@ if [[ -f "${DOTFILES_INSTALL_PATH}/.ssh/authorized_keys" ]]; then
         ssh_add_authorized_keys "${line}"
     done 3< <(grep '^ssh-' "${DOTFILES_INSTALL_PATH}/.ssh/authorized_keys")
 
-    while read -u 3 line; do
-        ssh_add_authorized_keys "${line}"
-    done 3< <(ssh-add -L)
+    # Do not read from ssh-add anymore
+    # while read -u 3 line; do
+    #     ssh_add_authorized_keys "${line}"
+    # done 3< <(ssh-add -L)
 fi
