@@ -5,17 +5,16 @@ function rc_dump() {
 
     echo "#!/usr/bin/env ${shell}"
     echo
-    cd "$DOTFILES_DIR/rc"
 
     # sort by filename (ignoring directory)
-    files=$(ls -1 *.sh $shell/*.sh | sort_by_filename)
+    files=$(ls -1 {"${DOTFILES_DIR}","${DOTFILES_CONFIG_DIR}"}/rc/{$shell/,}*.sh 2>/dev/null | sort_by_filename)
 
     for file in $files; do
         echo " > $(basename $file)" >&2
         content=$(. "$file")
 
         if [[ -n "$content" ]]; then
-            echo "# "$(echo "$file" | sed 's/^\.\///')
+            echo "# "$(echo "$file" | sed -e 's/^\.\///' -e "s|${HOME}|~|")
             echo "$content"
             echo
         fi
