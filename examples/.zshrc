@@ -80,8 +80,6 @@ alias rrm="rm -Rf"
 alias vihosts="sudo vi /etc/hosts"
 
 # zsh/90_zsh_options.sh
-unalias pu
-unalias po
 unsetopt correct
 unsetopt correct_all
 setopt APPEND_HISTORY
