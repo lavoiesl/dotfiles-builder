@@ -234,7 +234,7 @@ function cat_or_exec() {
 function dir_has_executables() {
     local dir="${1}"
 
-    [ -n "$(find -L "${dir}" -type f -perm '+111' -mindepth 1 -maxdepth 1)" ]
+    [ -n "$(find -L "${dir}" -mindepth 1 -maxdepth 1 -perm -a=x -type f)" ]
 }
 
 ##
