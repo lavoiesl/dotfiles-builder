@@ -20,7 +20,7 @@ function mysql_test() {
     return $?
 }
 
-if program_exists mysql; then
+if program_exists mysql && [[ "$(echo | mysql 2>&1)" != *"Can't connect to local MySQL"* ]]; then
     file="$(mktemp /tmp/.my.cnf.XXXXXX)"
 
     echo '[client]' > "${file}"
