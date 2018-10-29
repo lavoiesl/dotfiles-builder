@@ -4,7 +4,6 @@
 [ -z "$PS1" ] && return
 
 # 05_tmux.sh
-
 export ZSH_TMUX_AUTOSTART=true
 if [ -n "$TMUX" ]; then
     tmup ()
@@ -23,6 +22,9 @@ if [ -n "$TMUX" ]; then
         echo "Done"
     }
 fi
+
+# 05_zsh_tmux.sh
+export ZSH_TMUX_AUTOSTART=true
 
 # 10_locale.sh
 export LANG='en_US.UTF-8'
