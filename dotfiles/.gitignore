@@ -1,6 +1,7 @@
 # Compiled source
 *.class
 *.com
+!*.com/
 *.dll
 *.exe
 *.o
