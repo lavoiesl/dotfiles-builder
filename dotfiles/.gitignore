@@ -10,6 +10,9 @@
 *.so
 .bundle
 
+# IDEs
+.idea
+
 # OS generated files
 .Spotlight-V100
 *.DS_Store
