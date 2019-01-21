@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if program_exists subl; then
-  echo 'subl'
+  echo 'subl -w'
 fi
