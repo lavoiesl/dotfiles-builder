@@ -1,0 +1,1 @@
+!f() { git log --format="%s" --reverse ${1:-master}..HEAD | sed "s/^/- /"; }; f "$@"
