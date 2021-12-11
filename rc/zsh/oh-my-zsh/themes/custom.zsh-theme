@@ -60,7 +60,7 @@ custom_git_branch () {
 custom_git_status() {
   _STATUS=""
 
-  if [ "$(command git config --bool --get zsh-prompt.status)" != "false" ]; then
+  if [[ "$(command git config --bool --get zsh-prompt.status)" != "false" ]]; then
     # git config zsh-prompt.status-options "--ignore-submodules -uno"
     local git_options="$(command git config --get zsh-prompt.status-options)"
     _INDEX="$(command git status ${git_options} --porcelain 2> /dev/null)"
@@ -145,10 +145,30 @@ get_space () {
   echo $SPACES
 }
 
+zsh_command_time() {
+  # Nothing, we print our own in the theme bar
+}
+
+custom_command_time() {
+  if [ -n "$ZSH_COMMAND_TIME" ]; then
+    min=$(($ZSH_COMMAND_TIME/60))
+    sec=$(($ZSH_COMMAND_TIME%60))
+    if [ "$ZSH_COMMAND_TIME" -le 60 ]; then
+      color="green"
+    elif [ "$ZSH_COMMAND_TIME" -gt 60 ] && [ "$ZSH_COMMAND_TIME" -le 180 ]; then
+      color="yellow"
+    else
+      color="red"
+    fi
+
+    printf "$fg[$color]<%d:%02d> " $min $sec
+  fi
+}
+
 # _USERNAME not used
 # \$(nvm_prompt_info) not used
 _1LEFT="╭─${ZSH_THEME_PATH}"
-_1RIGHT="\$(custom_git_prompt)${ZSH_THEME_TIME}${ZSH_THEME_BATTERY}"
+_1RIGHT="\$(custom_git_prompt)\$(custom_command_time)${ZSH_THEME_TIME}${ZSH_THEME_BATTERY}"
 
 
 custom_precmd () {
