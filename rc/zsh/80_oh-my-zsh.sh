@@ -29,6 +29,7 @@ if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
         program_exists docker       && echo "    docker"
         program_exists gem          && echo "    gem"
         program_exists git          && echo "    git"
+        program_exists kubectl      && echo "    kubectl"
         program_exists npm          && echo "    npm"
         program_exists php          && echo "    symfony2"
         program_exists python       && echo "    python"
