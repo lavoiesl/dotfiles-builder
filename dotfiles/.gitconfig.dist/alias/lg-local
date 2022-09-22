@@ -1,1 +1,1 @@
-!git lg $(git branch | tr -d ' *' | awk '{ print "master~1.."$0 }')
+!git lg $(git remote-default-branch)~1..HEAD

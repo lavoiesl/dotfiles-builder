@@ -1,1 +1,1 @@
-!git push -u origin HEAD:$(git rev-parse --abbrev-ref HEAD)
+!git push -u origin HEAD:$(git branch --show-current)

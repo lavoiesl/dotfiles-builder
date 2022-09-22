@@ -1,0 +1,1 @@
+!git pull-rebase && git push --force-with-lease origin "$(git branch --show-current)"
