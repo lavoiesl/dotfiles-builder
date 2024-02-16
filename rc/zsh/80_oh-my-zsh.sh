@@ -27,6 +27,7 @@ if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
         program_exists brew-cask.rb && echo "    brew-cask"
         program_exists composer     && echo "    composer"
         program_exists docker       && echo "    docker"
+        program_exists fzf          && echo "    fzf"
         program_exists gem          && echo "    gem"
         program_exists git          && echo "    git"
         program_exists kubectl      && echo "    kubectl"
@@ -37,6 +38,7 @@ if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
         program_exists svn          && echo "    svn"
         program_exists tmux         && echo "    tmux"
         program_exists vagrant      && echo "    vagrant"
+        [ -d "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search" ] && echo "    zsh-fzf-history-search"
     echo ')'
 
     echo 'zstyle :omz:plugins:ssh-agent agent-forwarding on'
