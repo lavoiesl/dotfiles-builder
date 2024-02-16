@@ -1,16 +1,20 @@
 #!/bin/bash
 
-if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
-    echo "ZSH='${DOTFILES_INSTALL_PATH}/.oh-my-zsh'"
+oh_my_zsh_dir="${DOTFILES_INSTALL_PATH}/.oh-my-zsh"
+
+if [[ -d "${oh_my_zsh_dir}" ]]; then
+    echo "ZSH='${oh_my_zsh_dir}'"
 
     zsh_theme="wedisagree"
-    if [[ -d "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes" ]]; then
+    zsh_theme_dir="${oh_my_zsh_dir}/custom/themes"
+    dotfiles_zsh_theme_dir="${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes"
+    if [[ -d "${dotfiles_zsh_theme_dir}" ]]; then
         # symlink all included themes
-        [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh/custom/themes" ]] || mkdir "${DOTFILES_INSTALL_PATH}/.oh-my-zsh/custom/themes"
-        ln -sf "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes/"*.zsh-theme "${DOTFILES_INSTALL_PATH}/.oh-my-zsh/custom/themes/"
+        mkdir -p "${zsh_theme_dir}"
+        ln -sf "${dotfiles_zsh_theme_dir}/"*.zsh-theme "${zsh_theme_dir}/"
 
         # automically selects the first custom theme
-        theme=$(find "${DOTFILES_DIR}/rc/zsh/oh-my-zsh/themes" -name '*.zsh-theme' 2>/dev/null | head -n1)
+        theme=$(find "${dotfiles_zsh_theme_dir}" -name '*.zsh-theme' 2>/dev/null | head -n1)
         if [[ -n "${theme}" ]]; then
             zsh_theme="$(basename -s .zsh-theme "${theme}")"
         fi
@@ -38,7 +42,7 @@ if [[ -d "${DOTFILES_INSTALL_PATH}/.oh-my-zsh" ]]; then
         program_exists svn          && echo "    svn"
         program_exists tmux         && echo "    tmux"
         program_exists vagrant      && echo "    vagrant"
-        [ -d "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search" ] && echo "    zsh-fzf-history-search"
+        [[ -d "${oh_my_zsh_dir}/custom/plugins/zsh-fzf-history-search" ]] && echo "    zsh-fzf-history-search"
     echo ')'
 
     echo 'zstyle :omz:plugins:ssh-agent agent-forwarding on'
