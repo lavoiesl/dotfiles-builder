@@ -1,6 +1,6 @@
 #!/bin/bash
 
-oh_my_zsh_dir="${DOTFILES_INSTALL_PATH}/.oh-my-zsh"
+oh_my_zsh_dir="${HOME}/.oh-my-zsh"
 
 if [[ -d "${oh_my_zsh_dir}" ]]; then
     echo "ZSH='${oh_my_zsh_dir}'"
@@ -26,6 +26,7 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
     echo 'plugins=('
                                        echo "    battery"
                                        echo "    history"
+        program_exists op           && echo "    1password"
         program_exists bower        && echo "    bower"
         program_exists brew         && echo "    brew"
         program_exists brew-cask.rb && echo "    brew-cask"
