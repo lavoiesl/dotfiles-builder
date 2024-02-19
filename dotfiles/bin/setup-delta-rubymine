@@ -1,0 +1,14 @@
+#!/bin/sh
+
+path="${1:-~/src/github.com}"
+var="delta.hyperlinks.hyperlinks-file-link-format"
+val="rubymine://open?file={path}&line={line}"
+
+grep -lE ' - ruby(:|$)' ~/src/github.com/*/*/dev.yml | xargs -n1 dirname | while read project; do
+  if [[ -d "${project}/.git" ]]; then
+    if [[ "$(git -C "${project}" config "${var}")" != "${val}" ]]; then
+      echo "Setting ${var} to ${val} in ${project}"
+      git -C "${project}" config "${var}" "${val}"
+    fi
+  fi
+done

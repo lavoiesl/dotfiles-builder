@@ -1,3 +1,7 @@
 #!/bin/bash
 
-program_exists diff-so-fancy && echo "diff-so-fancy"
+if program_exists delta; then
+  echo "delta --color-only"
+elif program_exists diff-so-fancy; then
+  echo "diff-so-fancy"
+fi
