@@ -1,5 +1,9 @@
 syntax on
+
 runtime mswin.vim
+" Disable paste mode when pasting (introduced by pasting in Windows)
+noremap <C-V> <C-V>
+
 filetype plugin on
 au filetype * setl nowrap
 au filetype * let b:did_indent = 1
