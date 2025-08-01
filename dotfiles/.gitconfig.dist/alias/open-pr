@@ -1,0 +1,1 @@
+!sh -c "gh pr view --web || gh pr create --web"
