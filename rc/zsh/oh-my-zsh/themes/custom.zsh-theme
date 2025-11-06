@@ -29,7 +29,7 @@ ZSH_THEME_TIME="%{$fg[yellow]%}${ZSH_THEME_BRACKET_LEFT}%*${ZSH_THEME_BRACKET_RI
 ZSH_THEME_EXIT_CODE="%(?..%{$fg[red]%}${ZSH_THEME_BRACKET_LEFT}%?${ZSH_THEME_BRACKET_RIGHT}%{$reset_color%} )"
 
 
-if [ -n "$(battery_pct_prompt)" ]; then
+if command -v battery_pct_prompt >/dev/null && [ -n "$(battery_pct_prompt)" ]; then
   ZSH_THEME_BATTERY=" \$(battery_pct_prompt)%{\$reset_color%}"
 fi
 
@@ -82,7 +82,7 @@ custom_git_status() {
     else
       _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}"
     fi
-  
+
     # check status of local repository
     if $(echo "${_INDEX}" | command grep -q '^## .*ahead'); then
       _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_AHEAD}"
@@ -93,7 +93,7 @@ custom_git_status() {
     if $(echo "${_INDEX}" | command grep -q '^## .*diverged'); then
       _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_DIVERGED}"
     fi
-  
+
     if $(command git rev-parse --verify refs/stash &> /dev/null); then
       _STATUS="${_STATUS}${ZSH_THEME_GIT_PROMPT_STASHED}"
     fi

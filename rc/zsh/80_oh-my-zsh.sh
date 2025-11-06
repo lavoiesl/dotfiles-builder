@@ -24,7 +24,7 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
     echo 'COMPLETION_WAITING_DOTS="true"'
 
     echo 'plugins=('
-                                       echo "    battery"
+                                      #  echo "    battery"
                                        echo "    history"
         program_exists op           && echo "    1password"
         program_exists bower        && echo "    bower"
