@@ -35,7 +35,7 @@ function recursive_install() {
                 recursive_install "${dest_dir}" "${source_dir}" "${sub_dir}/${file}"
             fi
         else
-            cp -p "${source_file}" "${dest_file}"
+            ln -sf "${source_file}" "${dest_file}"
         fi
     done
 }
