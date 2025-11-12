@@ -1,17 +1,19 @@
 #!/bin/bash
 
-alias_dir="$DOTFILES_DIR/aliases"
+alias_dir="${DOTFILES_DIR}/aliases"
 
-if [ -d "$alias_dir" ]; then
-  cd $alias_dir
+if [ -d "${alias_dir}" ]; then
+  cd "${alias_dir}"
   
-  for alias in $(ls -1 *.sh); do
-    content="$(. ./$alias)"
-    alias_name=$(basename -s .sh $alias)
+  for alias in *; do
+    [[ -f "${alias}" ]] || continue
 
-    if [[ -n "$content" ]]; then
-        content="$(escape_chars "${content}" '\' '"' '$')"
-        echo alias $alias_name=\"$content\"
-    fi
+    content="$(cat_or_exec "./${alias}")"
+    alias_name="$(basename -s .sh "${alias}")"
+
+    [[ -n "$content" ]] || continue
+
+    content="$(escape_chars "${content}" '\' '"' '$')"
+    echo alias $alias_name=\"$content\"
   done
 fi
