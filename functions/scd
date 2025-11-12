@@ -1,0 +1,3 @@
+local target
+target="$(command src-cd "$@")" || return
+cd "$target"

@@ -1,0 +1,3 @@
+local target
+target="$(command src-clone "$@")" || return
+cd "$target"

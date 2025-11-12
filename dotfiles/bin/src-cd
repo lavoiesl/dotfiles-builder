@@ -1,0 +1,216 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+name="$(basename "$0")"
+
+usage() {
+  cat <<EOF
+Usage: $name [-a] [-h] [pattern]
+
+Detect repositories under \$SRC_ROOT (default: ~/src) and emit the selected
+path. Provide a pattern to filter results; with -a you pick among matches via fzf.
+Without a pattern, all repositories are offered through fzf.
+EOF
+  exit "${1:-0}"
+}
+
+require_fzf() {
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "fzf is required for interactive selection" >&2
+    exit 1
+  fi
+}
+
+select_with_fzf() {
+  local prompt=$1
+  shift
+  local indexes=("$@")
+  require_fzf
+
+  local selection
+  if ! selection=$(
+    {
+      for idx in "${indexes[@]}"; do
+        printf '%s\t%s\n' "${repo_display[$idx]}" "${repo_paths[$idx]}"
+      done
+    } | fzf --with-nth=1 --delimiter=$'\t' --prompt="$prompt" --exit-0
+  ); then
+    echo "Selection cancelled or no candidates available" >&2
+    exit 1
+  fi
+
+  if [[ -z ${selection:-} ]]; then
+    echo "Selection cancelled" >&2
+    exit 1
+  fi
+
+  printf '%s\n' "${selection#*$'\t'}"
+}
+
+root="${SRC_ROOT:-"$HOME/src"}"
+[[ -d $root ]] || { echo "Source root \"$root\" does not exist" >&2; exit 1; }
+
+history_file=${SRC_CD_HISTORY:-"$HOME/.cache/src-cd-history"}
+declare -a history_paths=()
+declare -a history_counts=()
+declare -a history_epochs=()
+
+if [[ -f $history_file ]]; then
+  while IFS=$'\t' read -r path count epoch; do
+    [[ -n ${path:-} ]] || continue
+    history_paths+=("$path")
+    history_counts+=("${count:-0}")
+    history_epochs+=("${epoch:-0}")
+  done < "$history_file"
+fi
+
+history_find_index() {
+  local target=$1
+  local i
+  for (( i=0; i<${#history_paths[@]}; ++i )); do
+    if [[ ${history_paths[$i]} == "$target" ]]; then
+      printf '%s\n' "$i"
+      return
+    fi
+  done
+  printf '%s\n' "-1"
+}
+
+history_get_count() {
+  local path=$1 idx
+  idx=$(history_find_index "$path")
+  if [[ $idx == -1 ]]; then
+    printf '0'
+  else
+    printf '%s' "${history_counts[$idx]}"
+  fi
+}
+
+history_get_epoch() {
+  local path=$1 idx
+  idx=$(history_find_index "$path")
+  if [[ $idx == -1 ]]; then
+    printf '0'
+  else
+    printf '%s' "${history_epochs[$idx]}"
+  fi
+}
+
+history_set_entry() {
+  local path=$1 count=$2 epoch=$3 idx
+  idx=$(history_find_index "$path")
+  if [[ $idx == -1 ]]; then
+    history_paths+=("$path")
+    history_counts+=("$count")
+    history_epochs+=("$epoch")
+  else
+    history_counts[$idx]=$count
+    history_epochs[$idx]=$epoch
+  fi
+}
+
+record_selection() {
+  local path=$1
+  local now count
+  now=$(date +%s)
+  count=$(history_get_count "$path")
+  count=$((count + 1))
+  history_set_entry "$path" "$count" "$now"
+
+  mkdir -p "$(dirname "$history_file")"
+  local tmp
+  tmp=$(mktemp)
+  local i
+  for (( i=0; i<${#history_paths[@]}; ++i )); do
+    printf '%s\t%s\t%s\n' "${history_paths[$i]}" "${history_counts[$i]}" "${history_epochs[$i]}" >> "$tmp"
+  done
+  mv "$tmp" "$history_file"
+}
+
+order_indexes() {
+  local -a indexes=("$@")
+  (( ${#indexes[@]} )) || return
+  if (( ${#indexes[@]} == 1 )); then
+    printf '%s\n' "${indexes[0]}"
+    return
+  fi
+
+  {
+    local idx path count epoch
+    for idx in "${indexes[@]}"; do
+      path=${repo_paths[$idx]}
+      count=$(history_get_count "$path")
+      epoch=$(history_get_epoch "$path")
+      printf '%s\t%010d\t%020d\t%d\n' "$path" "$count" "$epoch" "$idx"
+    done
+  } | LC_ALL=C sort -t $'\t' -k2,2nr -k3,3nr | cut -f4
+}
+
+use_fzf_on_matches=false
+while getopts ":ah" opt; do
+  case $opt in
+    a) use_fzf_on_matches=true ;;
+    h) usage 0 ;;
+    *) usage 1 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+pattern=${1:-}
+if (( $# > 1 )); then
+  usage 1
+fi
+
+declare -a repo_paths=()
+declare -a repo_display=()
+
+while IFS= read -r git_entry; do
+  [[ -n $git_entry ]] || continue
+  repo=${git_entry%/.git}
+  [[ -d $repo ]] || continue
+  repo_paths+=("$repo")
+  if [[ $repo == "$root" ]]; then
+    repo_display+=(".")
+  else
+    repo_display+=("${repo#"$root"/}")
+  fi
+done < <(find "$root" \( -type d -name .git -print -prune \) -o \( -type f -name .git -print \) | LC_ALL=C sort)
+
+(( ${#repo_paths[@]} )) || { echo "No repositories found under $root" >&2; exit 1; }
+
+declare -a match_indexes=()
+if [[ -n $pattern ]]; then
+  for idx in "${!repo_paths[@]}"; do
+    if printf '%s\n' "${repo_display[$idx]}" | grep -iqF -- "$pattern"; then
+      match_indexes+=("$idx")
+    fi
+  done
+else
+  for idx in "${!repo_paths[@]}"; do
+    match_indexes+=("$idx")
+  done
+fi
+
+(( ${#match_indexes[@]} )) || { echo "No repositories match \"$pattern\"" >&2; exit 1; }
+
+if (( ${#match_indexes[@]} > 1 )); then
+  ordered_indexes=()
+  while IFS= read -r ordered_idx; do
+    [[ -n ${ordered_idx:-} ]] || continue
+    ordered_indexes+=("$ordered_idx")
+  done < <(order_indexes "${match_indexes[@]}")
+  match_indexes=("${ordered_indexes[@]}")
+fi
+
+selected_path=""
+if [[ -z $pattern ]]; then
+  selected_path=$(select_with_fzf "$name> " "${match_indexes[@]}")
+elif $use_fzf_on_matches; then
+  selected_path=$(select_with_fzf "$name ($pattern)> " "${match_indexes[@]}")
+else
+  first_index=${match_indexes[0]}
+  selected_path=${repo_paths[$first_index]}
+fi
+
+record_selection "$selected_path"
+printf '%s\n' "$selected_path"

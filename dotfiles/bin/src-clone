@@ -41,7 +41,14 @@ parse_remote "$remote"
 
 root=${SRC_ROOT:-"$HOME/src"}
 destination="$root/$REMOTE_HOST/$REMOTE_PATH"
-parent_dir=$(dirname "$destination")
-# mkdir -p "$parent_dir"
 
-echo git clone "$remote" "$destination"
+if [ -d "${destination}" ]; then
+  echo "${destination} already exists" >&2
+else
+  parent_dir=$(dirname "$destination")
+  mkdir -p "$parent_dir"
+
+  git clone -q "$remote" "$destination"
+fi
+
+printf '%s\n' "$destination"
