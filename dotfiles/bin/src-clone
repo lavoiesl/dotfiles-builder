@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $(basename "$0") <remote>" >&2
+  exit 1
+}
+
+parse_remote() {
+  local remote=$1 host path remainder
+
+  if [[ $remote =~ ^[a-zA-Z][a-zA-Z0-9+.-]*:// ]]; then
+    remainder=${remote#*://}
+    host=${remainder%%/*}
+    [[ -n ${host:-} ]] || { echo "Remote host missing in $remote" >&2; exit 1; }
+    if [[ $remainder == */* ]]; then
+      path=${remainder#*/}
+    else
+      path=""
+    fi
+  elif [[ $remote =~ ^([^@]+@)?([^:]+):(.+)$ ]]; then
+    host=${BASH_REMATCH[2]}
+    path=${BASH_REMATCH[3]}
+  else
+    echo "Unrecognized remote format: $remote" >&2
+    exit 1
+  fi
+
+  path=${path##/}
+  path=${path%.git}
+  [[ -n ${path:-} ]] || { echo "Remote path missing in $remote" >&2; exit 1; }
+
+  REMOTE_HOST=$host
+  REMOTE_PATH=$path
+}
+
+remote=${1:-}
+[[ -n $remote ]] || usage
+
+parse_remote "$remote"
+
+root=${SRC_ROOT:-"$HOME/src"}
+destination="$root/$REMOTE_HOST/$REMOTE_PATH"
+parent_dir=$(dirname "$destination")
+# mkdir -p "$parent_dir"
+
+echo git clone "$remote" "$destination"
