@@ -1,0 +1,3 @@
+# Treat dotfile helpers as shell scripts for GitHub Linguist
+aliases/* linguist-language=Shell
+functions/* linguist-language=Shell
