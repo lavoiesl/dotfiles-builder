@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+node_package="node@20"
+prefix="$(brew --prefix "${node_package}")/bin"
+
+if [ ! -x "$prefix/node" ]; then
+  brew install "${node_package}"
+fi
+
+export PATH="${prefix}:$PATH"
+
+npx @coveo/cli@latest "$@"
