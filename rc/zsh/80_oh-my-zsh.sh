@@ -35,6 +35,7 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
         program_exists fzf          && echo "    fzf"
         program_exists gem          && echo "    gem"
         program_exists git          && echo "    git"
+        [ -d "/Applications/iTerm.app" ] && echo "    iterm2"
         program_exists kubectl      && echo "    kubectl"
         program_exists npm          && echo "    npm"
         program_exists php          && echo "    symfony2"
@@ -47,6 +48,8 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
     echo ')'
 
     echo 'zstyle :omz:plugins:ssh-agent agent-forwarding on'
+
+    [ -d "/Applications/iTerm.app" ] && echo 'zstyle :omz:plugins:iterm2 shell-integration yes'
     echo 'source "${ZSH}/oh-my-zsh.sh"'
 fi
 
