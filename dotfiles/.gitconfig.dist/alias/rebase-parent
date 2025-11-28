@@ -1,0 +1,1 @@
+!sh -c "git rebase -i $(git parent)"
