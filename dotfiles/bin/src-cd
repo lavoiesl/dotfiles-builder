@@ -174,7 +174,7 @@ while IFS= read -r git_entry; do
   else
     repo_display+=("${repo#"$root"/}")
   fi
-done < <(find "$root" \( -type d -name .git -print -prune \) -o \( -type f -name .git -print \) | LC_ALL=C sort)
+done < <(find "$root" -type d -name .git -maxdepth 5 | LC_ALL=C sort)
 
 (( ${#repo_paths[@]} )) || { echo "No repositories found under $root" >&2; exit 1; }
 
