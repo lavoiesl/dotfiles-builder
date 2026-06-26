@@ -49,7 +49,7 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
 
     if program_exists ssh-agent; then
       echo
-      echo "if [[ -z "\$SSH_CONNECTION" ]]; then"
+      echo "if [[ -z \"\$SSH_CONNECTION\" ]]; then"
       echo "    plugins+=(ssh-agent)"
       echo "    zstyle :omz:plugins:ssh-agent agent-forwarding on"
       echo "fi"
