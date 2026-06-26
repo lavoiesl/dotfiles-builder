@@ -41,14 +41,20 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
         program_exists node         && echo "    nvm"
         program_exists php          && echo "    symfony2"
         program_exists python       && echo "    python"
-        program_exists ssh-agent    && echo "    ssh-agent"
         program_exists svn          && echo "    svn"
         program_exists tmux         && echo "    tmux"
         program_exists vagrant      && echo "    vagrant"
         [[ -d "${oh_my_zsh_dir}/custom/plugins/zsh-fzf-history-search" ]] && echo "    zsh-fzf-history-search"
     echo ')'
 
-    echo 'zstyle :omz:plugins:ssh-agent agent-forwarding on'
+    if program_exists ssh-agent; then
+      echo
+      echo "if [[ -z "\$SSH_CONNECTION" ]]; then"
+      echo "    plugins+=(ssh-agent)"
+      echo "    zstyle :omz:plugins:ssh-agent agent-forwarding on"
+      echo "fi"
+      echo
+    fi
 
     [ -d "/Applications/iTerm.app" ] && echo 'zstyle :omz:plugins:iterm2 shell-integration yes'
 
