@@ -58,9 +58,9 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
 
     [ -d "/Applications/iTerm.app" ] && echo 'zstyle :omz:plugins:iterm2 shell-integration yes'
 
-    if program_exists node; then
+    if program_exists nvm; then
         echo 'zstyle :omz:plugins:nvm lazy yes'
-        echo 'zstyle :omz:plugins:nvm lazy-cmd eslint prettier typescript ts-node pnpm npm yarn'
+        echo 'zstyle :omz:plugins:nvm lazy-cmd node npm npx corepack pnpm yarn eslint prettier typescript ts-node'
         echo 'zstyle :omz:plugins:nvm autoload yes'
     fi
     echo 'source "${ZSH}/oh-my-zsh.sh"'
