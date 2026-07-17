@@ -37,6 +37,7 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
         program_exists git          && echo "    git"
         [ -d "/Applications/iTerm.app" ] && echo "    iterm2"
         program_exists kubectl      && echo "    kubectl"
+        program_exists mise         && echo "    mise"
         program_exists npm          && echo "    npm"
         program_exists node         && echo "    nvm"
         program_exists php          && echo "    symfony2"
