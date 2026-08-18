@@ -40,9 +40,9 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
         program_exists gh           && echo "    gh"
         [ -d "/Applications/iTerm.app" ] && echo "    iterm2"
         program_exists kubectl      && echo "    kubectl"
-        program_exists mise         && echo "    mise"
         program_exists npm          && echo "    npm"
         program_exists node         && echo "    nvm"
+        program_exists mise         && echo "    mise"
         program_exists php          && echo "    symfony2"
         program_exists python       && echo "    python"
         program_exists svn          && echo "    svn"
@@ -64,7 +64,6 @@ if [[ -d "${oh_my_zsh_dir}" ]]; then
 
     if program_exists node; then
         echo 'zstyle :omz:plugins:nvm lazy yes'
-        echo 'zstyle :omz:plugins:nvm lazy-cmd node npm npx corepack pnpm yarn eslint prettier typescript ts-node'
         echo 'zstyle :omz:plugins:nvm autoload yes'
     fi
     echo 'source "${ZSH}/oh-my-zsh.sh"'
