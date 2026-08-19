@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if command -v gh >/dev/null 2>&1 && command -v jq >/dev/null 2>&1 && gh stack -v >/dev/null 2>&1; then
+  gh stack view --json |
+    jq -r '
+      . as $s |
+      ($s.branches | map(.name) | index($s.currentBranch)) as $i |
+      if $i == null then "not in a stack"
+      elif $i == 0 then $s.trunk
+      else $s.branches[$i - 1].name
+      end
+    '
+  exit
+fi
+
+if command -v git-chain >/dev/null 2>&1; then
+  exec git-chain parent "$@"
+fi
+
+if command -v git-town >/dev/null 2>&1; then
+  branch="$(git rev-parse --abbrev-ref HEAD)" || exit
+  exec git config "git-town-branch.${branch}.parent"
+fi
+
+echo "gh stack, git-chain, or git-town is required" >&2
+exit 1
